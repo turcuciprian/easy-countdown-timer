@@ -29,7 +29,7 @@ add_action( 'admin_enqueue_scripts', 'ect_register_plugin_styles' );
 //register/enqueue style callback function
 function ect_register_plugin_styles() {
 	//style
-	wp_register_style( 'ectJqueryUi', plugins_url( 'css/jquery-ui.min.css', __FILE__ )  );
+	wp_register_style( 'ectJqueryUi', plugins_url( 'jquery-ui.min.css', __FILE__ )  );
 	wp_enqueue_style( 'ectJqueryUi' );
 
 
@@ -37,10 +37,10 @@ function ect_register_plugin_styles() {
 	wp_enqueue_style( 'ectStyles' );
 	//script
 	// wp_enqueue_script( 'jquery-ui-core' );
-	wp_register_script( 'ectjQueryUi', plugins_url( 'js/jquery-ui.min.js', __FILE__ )  );
+	wp_register_script( 'ectjQueryUi', plugins_url( 'jquery-ui.min.js', __FILE__ )  );
 	wp_enqueue_script( 'ectjQueryUi' );
 
-	wp_register_script( 'ectScript', plugins_url( 'js/script.js', __FILE__ )  );
+	wp_register_script( 'ectScript', plugins_url( 'scripts.js', __FILE__ )  );
 	wp_enqueue_script( 'ectScript' );
 
 }
