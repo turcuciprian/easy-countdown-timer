@@ -11,10 +11,14 @@ function ect_plugin_menu() {
     add_menu_page( 'Easy Countdown Timer', 'Easy Countdown Timer', 'manage_options', 'ect-menu','ect_menu_options_page' );
 }
 function ect_menu_options_page(){
+	//if form was sumbitted
+	if($_POST){
+		$datePicker = $_POST['datePicker'];
+	}
     ?>
         <h2>Easy Countdown Timer Settings</h2>
-        <label for="dateTime">Select End Date and Time:</label>
-        <input type="text" name="dateTime" id="dateTime" value="" placeholder="Date"/>
+        <label for="datePicker">Select End Date :</label><br/>
+        <input type="text" name="datePicker" id="datePicker" value="" placeholder="Date"/>
 	<p>
 		<button type="button" class="button button-primary">Save Settings</button>
 	</p>        
