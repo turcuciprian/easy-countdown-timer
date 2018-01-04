@@ -12,17 +12,23 @@ function ect_plugin_menu() {
 }
 function ect_menu_options_page(){
 	//if form was sumbitted
+	$datePickerA = get_option('ect-datePickerA');
 	if($_POST){
-		$datePicker = $_POST['datePicker'];
+		$datePickerA = $_POST['datePickerA'];
+		update_option( 'ect-datePickerA', $datePickerA );
 	}
     ?>
         <h2>Easy Countdown Timer Settings</h2>
-        <label for="datePicker">Select End Date :</label><br/>
-        <input type="text" name="datePicker" id="datePicker" value="" placeholder="Date"/>
-	<p>
-		<button type="button" class="button button-primary">Save Settings</button>
-	</p>        
-	<?php	
+	<form action="" method="POST">
+		<label for="datePickerA">Select End Date(Date 1):</label> 
+		<input type="text" name="datePickerA" id="datePickerA" value="<?php echo $datePickerA ?>" placeholder="Date"/><br/>
+		<label for="ect-shortcode">Copy Shortcode (Date1):
+		<input type="text" name=""ect-shortcode" id="ect-shortcode" value="<[ect-date1]" placeholder="Date"/>
+		<p>
+			<button type="submit" class="button button-primary">Save Settings</button>
+		</p>        
+	</form>
+<?php	
 }
 
 add_action( 'admin_menu', 'ect_plugin_menu' );

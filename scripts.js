@@ -1,4 +1,4 @@
 jQuery(document).ready(function($){
-	var datePicker = $('#datePicker');
+	var datePicker = $('#datePickerA');
 	datePicker.datepicker();
 });
