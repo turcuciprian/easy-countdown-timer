@@ -1,4 +1,4 @@
 jQuery(document).ready(function($){
 	var datePicker = $('#datePickerA');
-	datePicker.datepicker();
+	datePicker.datepicker({dateFormat:'mm/dd/yy'});
 });
