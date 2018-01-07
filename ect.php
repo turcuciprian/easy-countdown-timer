@@ -4,10 +4,14 @@
    Plugin URI: https://wordpress.org/plugins/easy-countdown-timer
    Description: A very easy to use and intuitive countdown timer for wordpress. At the moment it shows the number of days left to a given date As a shortcode
    Author: Ciprian Turcu
-   Version: 1.0.1
+   Version: 1.0.2
    Author URI: http://www.ciprianturcu.com
    tags: timer, countdown, days, shorcode, simple, easy, until, left, datepicker
+   License: GPL2
  */
+function sanitize_option_ectDatePickerA($value){
+	return esc_html($value);
+}
 function ect_plugin_menu() {
 	add_menu_page( 'Easy Countdown Timer', 'Easy Countdown Timer', 'manage_options', 'ect-menu','ect_menu_options_page' );
 }
@@ -19,7 +23,7 @@ function ect_menu_options_page(){
 		$nonce = wp_verify_nonce( $getNounce, 'post-ect-data' );
 		if(!$nonce){
 			$datePickerA = $_POST['datePickerA'];
-			$datePickerA = sanitize_option('ect-datePickerA',$datePickerA);
+			$datePickerA = sanitize_option('ectDatePickerA',$datePickerA);
 			update_option( 'ect-datePickerA', $datePickerA );
 		}
 	}
@@ -59,10 +63,10 @@ function ect_register_plugin_styles() {
 // shortcode:
 function ectShortcodeDate1( $atts ){
 	$datePickerA = get_option('ect-datePickerA');
-	$result = days_until($datePickerA);
+	$result = ect_daysUntil($datePickerA);
 	return $result+1;
 }
 add_shortcode( 'ect-date1', 'ectShortcodeDate1' );
-function days_until($date){
+function ect_daysUntil($date){
 	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24) : FALSE;
 }
