@@ -9,6 +9,7 @@
    tags: timer, countdown, days, shorcode, simple, easy, until, left, datepicker
    License: GPL2
  */
+ // error_reporting(E_ALL); ini_set('display_errors', '1');
 function sanitize_option_ectDatePickerA($value){
 	return esc_html($value);
 }
@@ -32,22 +33,30 @@ function ect_menu_options_page(){
   	<div id="ectPageContainer" ng-app="ectWP">
 			<div ng-controller="mainController as mc" class="ectPanels">
 		    <ang-accordion one-at-a-time="true">
-		      <collapsible-item item-title="{{item.title}}" ng-repeat="item in mc.timers">
+		      <collapsible-item item-title="{{item.title}}" ng-repeat="item in mc.timers track by $index">
 		        <div>
-							Timer Title: <input type="text" ng-model="item.name" name="" value="">
-		          Timer End Date:
-		          <md-datepicker md-hide-icons="all" md-open-on-focus ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>
-		          <br/> Shortcode: <input class="readonly" type="text" name="" value="[ect-short{{$index}}]" readonly>
-		          <button type="button" name="button" ng-click="mc.removeTimer($index)">Remove Timer</button>
+
+		          Timer Title: <input class="titleInp" type="text" ng-model="item.title" name="" value=""> <br/> Timer End Date:
+		          <md-datepicker class="datePicker" type="text" md-hide-icons="all" md-open-on-focus ng-model="item.date" md-placeholder="Enter date"></md-datepicker>
+		          <br/> Shortcode: <input class="readonly" type="text" name="" value="[ect-short nr=&quot;{{item.id}}&quot;]" readonly>
+
+		          <md-button class="md-raised md-warn btnRemove" name="button" type="button" ng-click="mc.removeTimer($index)">Remove Timer</md-button>
 		        </div>
 		      </collapsible-item>
 		      <!-- More collapsible items -->
 		    </ang-accordion>
-		    <button type="button" name="button" ng-click="mc.AddTimer()">Add a Timer</button>
+		    <p>
+		      <md-button class="md-raised md-primary" name="button" ng-click="mc.AddTimer()">Add</md-button>
+		    </p>
+		    <p>
+		      <md-button class="md-raised md-default" type="button" name="button" ng-click="mc.saveTimers()">Save Timers</md-button>
+
+		    </p>
+		    <p class="ectMessage">
+		      {{mc.ectMessage}}
+		    </p>
 		  </div>
   	</div>
-    <button type="submit" class="button button-primary">Save Settings</button>
-
 	<?php
 }
 
@@ -56,6 +65,11 @@ add_action( 'admin_menu', 'ect_plugin_menu' );
 add_action( 'admin_enqueue_scripts', 'ect_register_plugin_styles' );
 //register/enqueue style callback function
 function ect_register_plugin_styles() {
+	?>
+	<script type="text/javascript">
+		window.ectPath = '<?php echo esc_url( site_url( '/' ).'wp-json' ); ?>';
+	</script>
+	<?php
 	//style
 	wp_register_style( 'ectJqueryUi', plugins_url( 'jquery-ui.min.css', __FILE__ )  );
 	wp_enqueue_style( 'ectJqueryUi' );
@@ -70,21 +84,30 @@ function ect_register_plugin_styles() {
 	wp_enqueue_script( 'ectCommons' );
 	wp_register_script( 'ectBundle', plugins_url( 'src/js/bundle.js', __FILE__ )  );
 	wp_enqueue_script( 'ectBundle' );
-	wp_register_script( 'ectScript', plugins_url( 'scripts.js', __FILE__ )  );
-	wp_enqueue_script( 'ectScript' );
-	wp_register_script( 'ectScript', plugins_url( 'scripts.js', __FILE__ )  );
-	wp_enqueue_script( 'ectScript' );
 }
-
 // shortcode:
 function ectShortcodeDate1( $atts ){
 	$datePickerA = get_option('ect-datePickerA');
 	$result = ect_daysUntil($datePickerA);
-	return $result+1;
+	return $result;
 }
-add_shortcode( 'ect-date1', 'ectShortcodeDate1' );
+	add_shortcode( 'ect-short', 'ectShortAll' );
+function ectShortAll($atts){
+	$tNr = $atts['nr'];
+	$tArrTemp = get_option('ect-TimersArr');
+	foreach ($tArrTemp as $key => $value) {
+		if($value['id']==$tNr){
+
+			$result = ect_daysUntil($value['date']);
+			if($result>=0){
+				return $result;
+			}
+			return 0;
+		}
+	}
+}
 function ect_daysUntil($date){
-	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24) : FALSE;
+	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24)+1 : FALSE;
 }
 
 
@@ -187,30 +210,24 @@ add_filter( 'customize_loaded_components', 'ectRemoveCustomizer' );
 //
 
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'ect/timers', '/getTimers)', array(
+	register_rest_route( 'ect', 'getTimers', array(
     'methods' => 'GET',
-    'callback' => 'ectRestCallback',
+    'callback' => 'ectRC_getTimers',
   ) );
+	register_rest_route( 'ect', '/setTimers', array(
+		'methods' => 'PUT',
+		'callback' => 'ectRC_setTimers',
+	) );
 } );
-function ectRestCallback( WP_REST_Request $request ) {
-  // You can access parameters via direct array access on the object:
-  $param = $request['some_param'];
 
-  // Or via the helper method:
-  $param = $request->get_param( 'some_param' );
 
-  // You can get the combined, merged set of parameters:
-  $parameters = $request->get_params();
+function ectRC_getTimers( WP_REST_Request $request ) {
+	$timersArr = get_option('ect-TimersArr');
 
-  // The individual sets of parameters are also available, if needed:
-  $parameters = $request->get_url_params();
-  $parameters = $request->get_query_params();
-  $parameters = $request->get_body_params();
-  $parameters = $request->get_json_params();
-  $parameters = $request->get_default_params();
-
-  // Uploads aren't merged in, but can be accessed separately:
-  $parameters = $request->get_file_params();
-	echo "<pre>";
-	echo $parameters;
+	return $timersArr;
+}
+function ectRC_setTimers(WP_REST_Request $request ){
+	$newData = $request['data'];
+	$timersArr = update_option('ect-TimersArr',$newData);
+	return $newData;
 }

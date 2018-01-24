@@ -1,69 +1,4 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
-/******/ })
-/************************************************************************/
-/******/ ([
+webpackJsonp([0],[
 /* 0 */
 /***/ (function(module, exports) {
 
@@ -589,7 +524,7 @@ __webpack_require__(31);
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset='utf-8'>\n  <title>Easy Countdown Timer</title>\n</head>\n<body ng-app=\"ectWP\">\n  <div ng-controller=\"mainController as mc\" class=\"ectPanels\">\n    <ang-accordion one-at-a-time=\"true\">\n      <collapsible-item item-title=\"{{item.heading}}\" ng-repeat=\"item in mc.timers\">\n        <div>\n          Timer End Date:\n          <md-datepicker md-hide-icons=\"all\" md-open-on-focus ng-model=\"ctrl.myDate\" md-placeholder=\"Enter date\"></md-datepicker>\n          <br/> Shortcode: <input class=\"readonly\" type=\"text\" name=\"\" value=\"[ect-short{{$index}}]\" readonly>\n          <button type=\"button\" name=\"button\" ng-click=\"mc.removeTimer($index)\">Remove Timer</button>\n        </div>\n      </collapsible-item>\n      <!-- More collapsible items -->\n    </ang-accordion>\n    <button type=\"button\" name=\"button\" ng-click=\"mc.AddTimer()\">Add a Timer</button>\n  </div>\n  <script src=\"./dist/commons.js\"></script>\n  <script src=\"./dist/bundle.js\"></script>\n</body>\n\n</html>\n";
+module.exports = "<!DOCTYPE html>\n<html>\n\n<head>\n  <meta charset='utf-8'>\n  <title>Easy Countdown Timer</title>\n</head>\n\n<body ng-app=\"ectWP\">\n  <div ng-controller=\"mainController as mc\" class=\"ectPanels\">\n    <ang-accordion one-at-a-time=\"true\">\n      <collapsible-item item-title=\"{{item.title}}\" ng-repeat=\"item in mc.timers track by $index\">\n        <div>\n\n          Timer Title: <input class=\"titleInp\" type=\"text\" ng-model=\"item.title\" name=\"\" value=\"\"> <br/> Timer End Date:\n          <md-datepicker class=\"datePicker\" type=\"text\" md-hide-icons=\"all\" md-open-on-focus ng-model=\"item.date\" md-placeholder=\"Enter date\"></md-datepicker>\n          <br/> Shortcode: <input class=\"readonly\" type=\"text\" name=\"\" value=\"[ect-short-{{item.id}} nr=&quot;{{item.id}}&quot;]\" readonly>\n\n          <md-button class=\"md-raised md-warn btnRemove\" name=\"button\" type=\"button\" ng-click=\"mc.removeTimer($index)\">Remove Timer</md-button>\n        </div>\n      </collapsible-item>\n      <!-- More collapsible items -->\n    </ang-accordion>\n    <p>\n      <md-button class=\"md-raised md-primary\" name=\"button\" ng-click=\"mc.AddTimer()\">Add</md-button>\n    </p>\n    <p>\n      <md-button class=\"md-raised md-default\" type=\"button\" name=\"button\" ng-click=\"mc.saveTimers()\">Save Timers</md-button>\n\n    </p>\n    <p class=\"ectMessage\">\n      {{mc.ectMessage}}\n    </p>\n  </div>\n  <script type=\"text/javascript\">\n    window.ectPath = 'http://localhost:8888/wordpress/wp-json';\n  </script>\n  <script src=\"./dist/commons.js\"></script>\n  <script src=\"./dist/bundle.js\"></script>\n</body>\n\n</html>\n";
 
 /***/ }),
 /* 10 */
@@ -76991,7 +76926,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "#ectPageContainer {\n  margin: 40px 0; }\n\n.ectPanels {\n  max-width: 500px; }\n  .ectPanels .readonly {\n    background-color: #c3c3c3; }\n", ""]);
+exports.push([module.i, "#ectPageContainer {\n  margin: 40px 0; }\n\n.ectPanels {\n  max-width: 500px; }\n  .ectPanels .title {\n    background-color: rgba(202, 199, 246, 0.5);\n    background-image: none;\n    font-weight: bold;\n    border-radius: 18px 18px 18px 18px;\n    -moz-border-radius: 18px 18px 18px 18px;\n    -webkit-border-radius: 18px 18px 18px 18px; }\n  .ectPanels .titleInp {\n    margin: 20px; }\n  .ectPanels .datePicker {\n    padding: 15px;\n    margin: 14px; }\n    .ectPanels .datePicker input {\n      padding: 0px;\n      border: 1px solid #9c9898;\n      text-align: center;\n      line-height: 25px; }\n  .ectPanels .readonly {\n    background-color: #0e50e6;\n    color: white;\n    margin: 14px;\n    padding: 5px; }\n  .ectPanels .btnRemove {\n    float: right;\n    margin-bottom: 20px; }\n  .ectPanels .ectMessage {\n    background-color: #e8f9cf;\n    font-size: 16px; }\n", ""]);
 
 // exports
 
@@ -77018,10 +76953,16 @@ __webpack_require__(33);
 
 var _main = __webpack_require__(2);
 
-_main.app.factory('generalService', ['$localStorage', function ($localStorage) {
+_main.app.factory('generalService', ['$http', function ($http) {
   return {
     setPath: function setPath(routePath) {
-      return 'http://.............' + routePath;
+      return window.ectPath + routePath;
+    },
+    getTimers: function getTimers() {
+      return $http.get(this.setPath('/ect/getTimers'));
+    },
+    setTimers: function setTimers(data) {
+      return $http.put(this.setPath('/ect/setTimers'), data);
     }
   };
 }]);
@@ -77035,22 +76976,45 @@ _main.app.factory('generalService', ['$localStorage', function ($localStorage) {
 
 var _main = __webpack_require__(2);
 
-_main.app.controller("mainController", function () {
+_main.app.controller("mainController", ['generalService', function (generalService) {
   var tThis = this;
   tThis.timers = [{
-    title: ' Timer',
-    heading: ' Heading'
+    id: 0,
+    title: 'Timer',
+    name: 'timer',
+    endDate: ''
   }];
   tThis.AddTimer = function () {
-    tThis.timers.push({
-      title: ' Timer' + (tThis.timers.length + 1),
-      heading: ' Heading' + (tThis.timers.length + 1)
-    });
+    var newID = tThis.timers.length == 0 ? 0 : tThis.timers[tThis.timers.length - 1].id + 1;
+    var newTimer = {
+      id: newID,
+      title: ' Timer' + newID,
+      name: ' timer' + newID
+    };
+    tThis.timers.push(newTimer);
   };
   tThis.removeTimer = function (i) {
     tThis.timers.splice(i, 1);
   };
-});
+  tThis.saveTimers = function () {
+    var newData = {
+      'data': tThis.timers
+    };
+    tThis.ectMessage = 'Saving Timers.... (please wait)';
+    generalService.setTimers(newData).then(function (response) {
+      tThis.ectMessage = 'Saved !';
+    });
+  };
+  tThis.resetDefaults = function () {
+    generalService.getTimers().then(function (response) {
+      var tempData = response.data;
+      if (tempData) {
+        tThis.timers = tempData;
+      }
+    });
+  };
+  tThis.resetDefaults();
+}]);
 
 /***/ })
-/******/ ]);
+],[7]);
