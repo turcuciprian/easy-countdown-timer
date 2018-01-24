@@ -29,19 +29,25 @@ function ect_menu_options_page(){
 	}
 ?>
 	<h2>Easy Countdown Timer Settings</h2>
-	<form action="" method="POST">
-<?php
-	$newNounce = wp_create_nonce( 'post-ect-data');
-?>
-		<input type="hidden" name="_wpnounce" value="<?php echo $newNounce;?>"/>
-		<label for="datePickerA">Select End Date(Date 1):</label>
-		<input type="text" name="datePickerA" id="datePickerA" value="<?php echo $datePickerA ?>" placeholder="Date"/><br/>
-		<label for="ect-shortcode">Copy Shortcode (Date1):
-		<input type="text" name=""ect-shortcode" id="ect-shortcode" value="[ect-date1]" placeholder="Date"/>
-		<p>
-			<button type="submit" class="button button-primary">Save Settings</button>
-		</p>
-	</form>
+  	<div id="ectPageContainer" ng-app="ectWP">
+			<div ng-controller="mainController as mc" class="ectPanels">
+		    <ang-accordion one-at-a-time="true">
+		      <collapsible-item item-title="{{item.title}}" ng-repeat="item in mc.timers">
+		        <div>
+							Timer Title: <input type="text" ng-model="item.name" name="" value="">
+		          Timer End Date:
+		          <md-datepicker md-hide-icons="all" md-open-on-focus ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>
+		          <br/> Shortcode: <input class="readonly" type="text" name="" value="[ect-short{{$index}}]" readonly>
+		          <button type="button" name="button" ng-click="mc.removeTimer($index)">Remove Timer</button>
+		        </div>
+		      </collapsible-item>
+		      <!-- More collapsible items -->
+		    </ang-accordion>
+		    <button type="button" name="button" ng-click="mc.AddTimer()">Add a Timer</button>
+		  </div>
+  	</div>
+    <button type="submit" class="button button-primary">Save Settings</button>
+
 	<?php
 }
 
@@ -57,7 +63,15 @@ function ect_register_plugin_styles() {
 	wp_enqueue_style( 'ectStyles' );
 	//script
 	wp_enqueue_script( 'jquery-ui-core' );
-	wp_enqueue_script( 'jquery-ui-datepicker' );
+
+  wp_enqueue_script( 'jquery-ui-datepicker' );
+	wp_enqueue_script( 'jquery-ui-accordion' );
+	wp_register_script( 'ectCommons', plugins_url( 'src/js/commons.js', __FILE__ )  );
+	wp_enqueue_script( 'ectCommons' );
+	wp_register_script( 'ectBundle', plugins_url( 'src/js/bundle.js', __FILE__ )  );
+	wp_enqueue_script( 'ectBundle' );
+	wp_register_script( 'ectScript', plugins_url( 'scripts.js', __FILE__ )  );
+	wp_enqueue_script( 'ectScript' );
 	wp_register_script( 'ectScript', plugins_url( 'scripts.js', __FILE__ )  );
 	wp_enqueue_script( 'ectScript' );
 }
@@ -167,3 +181,36 @@ function ectRemoveCustomizer( $components ) {
     return $components;
 }
 add_filter( 'customize_loaded_components', 'ectRemoveCustomizer' );
+
+//routes
+//
+//
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'ect/timers', '/getTimers)', array(
+    'methods' => 'GET',
+    'callback' => 'ectRestCallback',
+  ) );
+} );
+function ectRestCallback( WP_REST_Request $request ) {
+  // You can access parameters via direct array access on the object:
+  $param = $request['some_param'];
+
+  // Or via the helper method:
+  $param = $request->get_param( 'some_param' );
+
+  // You can get the combined, merged set of parameters:
+  $parameters = $request->get_params();
+
+  // The individual sets of parameters are also available, if needed:
+  $parameters = $request->get_url_params();
+  $parameters = $request->get_query_params();
+  $parameters = $request->get_body_params();
+  $parameters = $request->get_json_params();
+  $parameters = $request->get_default_params();
+
+  // Uploads aren't merged in, but can be accessed separately:
+  $parameters = $request->get_file_params();
+	echo "<pre>";
+	echo $parameters;
+}

@@ -2,7 +2,6 @@ jQuery(document).ready(function($) {
   var ctoDatePicker = $('.ctoDatePicker');
   var ctoTimepicker = $('.ctoTimepicker');
   var ctoColorPicker = $('.ctoColorPicker');
-  console.log('sddd');
 
   if (ctoDatePicker[0]) {
     ctoDatePicker.on('hover',function(){
@@ -30,4 +29,18 @@ jQuery(document).ready(function($) {
           });
       }
   }
+  // expand collapse
+
+  var accordionData = [
+    {
+      name:'Countdown',
+      data: 'some lorem ipsum data'
+    },
+    {
+      name:'Countdown',
+      data: 'some lorem ipsum data asdasd as dsa das'
+    }
+  ];
+
+
 });
