@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comments, spam
 Requires at least: 4.6
 Tested up to: 4.9.1
-Stable tag: 1.1.1
+Stable tag: 1.2
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,10 @@ A very easy to use and intuitive countdown timer for wordpress. At the moment it
 
 == Description ==
 
-A very easy to use and intuitive countdown timer for wordpress. At the moment it shows the number of days left to a given date As a shortcode
+https://www.youtube.com/watch?v=ZAtYeaeSPRQ
+A very easy to use and intuitive countdown timer for WordPress. At the moment it shows the number of days left to a given date As a shortcode
+You can add infinite shortcodes trough the interface which is very easy and intuitive. You can remove shortcodes, name them.
+It works on all posts, pages and what ever has to do with shortcodes in a usual WordPress usage.
 
 Requires PHP
 
@@ -55,6 +58,10 @@ An answer to that question.
 = 1.1 =
 * added widget functionality for the plugin
 
+= 1.2 =
+shortcodes are now dynamically created, you can add as many shortcodes as you want for date endings.
+
+
 == Upgrade Notice ==
 
 = 1.0.0 =
@@ -62,3 +69,6 @@ Everything should be fine
 
 = 1.1 =
 No database changes. Functionality should not be affected
+
+= 1.2 =
+Shortcodes from the previous version will not be affected but the functionality will not be available.

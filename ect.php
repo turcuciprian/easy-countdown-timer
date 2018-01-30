@@ -2,9 +2,11 @@
 /*
    Plugin Name: Easy Contdown Timer
    Plugin URI: https://wordpress.org/plugins/easy-countdown-timer
-   Description: A very easy to use and intuitive countdown timer for wordpress. At the moment it shows the number of days left to a given date As a shortcode
+   Description: A very easy to use and intuitive countdown timer for wordpress.
+	 At the moment it shows the number of days left to a given date As a shortcode
+	 You can add infinite shortcodes, name them and delete them.
    Author: Ciprian Turcu
-   Version: 1.1.1
+   Version: 1.2
    Author URI: http://www.ciprianturcu.com
    tags: timer, countdown, days, shorcode, simple, easy, until, left, datepicker
    License: GPL2
