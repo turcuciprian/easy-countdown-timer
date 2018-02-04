@@ -32,32 +32,7 @@ function ect_menu_options_page(){
 	}
 ?>
 	<h2>Easy Countdown Timer Settings</h2>
-  	<div id="ectPageContainer" ng-app="ectWP">
-			<div ng-controller="mainController as mc" class="ectPanels">
-		    <ang-accordion one-at-a-time="true">
-		      <collapsible-item item-title="{{item.title}}" ng-repeat="item in mc.timers track by $index">
-		        <div>
-
-		          Timer Title: <input class="titleInp" type="text" ng-model="item.title" name="" value=""> <br/> Timer End Date:
-		          <md-datepicker class="datePicker" type="text" md-hide-icons="all" md-open-on-focus ng-model="item.date" md-placeholder="Enter date"></md-datepicker>
-		          <br/> Shortcode: <input class="readonly" type="text" name="" value="[ect-short nr=&quot;{{item.id}}&quot;]" readonly>
-
-		          <md-button class="md-raised md-warn btnRemove" name="button" type="button" ng-click="mc.removeTimer($index)">Remove Timer</md-button>
-		        </div>
-		      </collapsible-item>
-		      <!-- More collapsible items -->
-		    </ang-accordion>
-		    <p>
-		      <md-button class="md-raised md-primary" name="button" ng-click="mc.AddTimer()">Add</md-button>
-		    </p>
-		    <p>
-		      <md-button class="md-raised md-default" type="button" name="button" ng-click="mc.saveTimers()">Save Timers</md-button>
-
-		    </p>
-		    <p class="ectMessage">
-		      {{mc.ectMessage}}
-		    </p>
-		  </div>
+  	<div id="ectPopupContent">
   	</div>
 	<?php
 }
@@ -78,13 +53,10 @@ function ect_register_plugin_styles() {
 	wp_register_style( 'ectStyles', plugins_url( 'style.css', __FILE__ )  );
 	wp_enqueue_style( 'ectStyles' );
 	//script
-	wp_enqueue_script( 'jquery-ui-core' );
 
-  wp_enqueue_script( 'jquery-ui-datepicker' );
-	wp_enqueue_script( 'jquery-ui-accordion' );
-	wp_register_script( 'ectCommons', plugins_url( 'src/js/commons.js', __FILE__ )  );
+	wp_register_script( 'ectCommons', plugins_url( 'src/js/commons.js', __FILE__ ) ,[],null, true   );
 	wp_enqueue_script( 'ectCommons' );
-	wp_register_script( 'ectBundle', plugins_url( 'src/js/bundle.js', __FILE__ )  );
+	wp_register_script( 'ectBundle', plugins_url( 'src/js/bundle.js', __FILE__ ),['ectCommons'],null, true  );
 	wp_enqueue_script( 'ectBundle' );
 }
 // shortcode:
