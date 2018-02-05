@@ -4,9 +4,9 @@
    Plugin URI: https://wordpress.org/plugins/easy-countdown-timer
    Description: A very easy to use and intuitive countdown timer for wordpress.
 	 At the moment it shows the number of days left to a given date As a shortcode
-	 You can add infinite shortcodes, name them and delete them.
+	 You can add infinite shortcodes.
    Author: Ciprian Turcu
-   Version: 1.2
+   Version: 1.9.7
    Author URI: http://www.ciprianturcu.com
    tags: timer, countdown, days, shorcode, simple, easy, until, left, datepicker
    License: GPL2
@@ -39,7 +39,9 @@ function ect_menu_options_page(){
 
 add_action( 'admin_menu', 'ect_plugin_menu' );
 // Register style sheet.
-add_action( 'admin_enqueue_scripts', 'ect_register_plugin_styles' );
+if($_GET['page']=='ect-menu'){
+	add_action( 'admin_enqueue_scripts', 'ect_register_plugin_styles' );
+}
 //register/enqueue style callback function
 function ect_register_plugin_styles() {
 	?>
@@ -53,11 +55,10 @@ function ect_register_plugin_styles() {
 	wp_register_style( 'ectStyles', plugins_url( 'style.css', __FILE__ )  );
 	wp_enqueue_style( 'ectStyles' );
 	//script
-
-	wp_register_script( 'ectCommons', plugins_url( 'src/js/commons.js', __FILE__ ) ,[],null, true   );
-	wp_enqueue_script( 'ectCommons' );
-	wp_register_script( 'ectBundle', plugins_url( 'src/js/bundle.js', __FILE__ ),['ectCommons'],null, true  );
-	wp_enqueue_script( 'ectBundle' );
+	wp_register_script( 'ectCommonsReact', plugins_url( 'src/js/commons.js', __FILE__ ),[],null,true  );
+	wp_enqueue_script( 'ectCommonsReact' );
+	wp_register_script( 'ectBundleReact', plugins_url( 'src/js/bundle.js', __FILE__ ),['ectCommonsReact'],null, true  );
+	wp_enqueue_script( 'ectBundleReact' );
 }
 // shortcode:
 function ectShortcodeDate1( $atts ){
@@ -65,20 +66,22 @@ function ectShortcodeDate1( $atts ){
 	$result = ect_daysUntil($datePickerA);
 	return $result;
 }
-	add_shortcode( 'ect-short', 'ectShortAll' );
+	add_shortcode( 'ectShortcode', 'ectShortAll');
 function ectShortAll($atts){
-	$tNr = $atts['nr'];
-	$tArrTemp = get_option('ect-TimersArr');
-	foreach ($tArrTemp as $key => $value) {
-		if($value['id']==$tNr){
+	$tName = $atts['name'];
+	$tDate = $atts['date'];
+	$tColor = $atts['color'];
+	$tFontSize = $atts['fontsize'];
+	$tBold = $atts['bold'];
 
-			$result = ect_daysUntil($value['date']);
-			if($result>=0){
-				return $result;
-			}
-			return 0;
-		}
+	$boldText = ($tBold=='true'?'bold':'normal');
+
+	$daysLeft = ect_daysUntil($tDate);
+	$result = '<span style="font-size: '.$tFontSize.';color:'.$tColor.';font-weight:'.$boldText.'">'.$daysLeft.'</span>';
+	if($result>=0){
+		return $result;
 	}
+	return 0;
 }
 function ect_daysUntil($date){
 	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24)+1 : FALSE;
@@ -86,51 +89,6 @@ function ect_daysUntil($date){
 
 
 //widget
-
-
- if(!function_exists('ect_AdminEnqueueAll')){
-   //Admin scripts and styles
-
-   add_action('admin_enqueue_scripts', 'ect_AdminEnqueueAll');
-   add_action('wp_enqueue_scripts', 'ect_EnqueueAll');
-   function ect_EnqueueAll(){
-     ect_Exists('ect_customStyle', 'src/css/style.css', 'style',null,'ectPlugin');
-   }
-   //Admin scripts and styles callback
-   function ect_AdminEnqueueAll()
-   {
-     //*
-     // CSS
-     //*
-     ect_Exists('jQueryUiCore', 'src/css/jquery-ui.css', 'style',array(),'ectPlugin');
-     ect_Exists('ect_Timepicker', 'src/css/jquery.timepicker.css', 'style',array(),'ectPlugin');
-     ect_Exists('ect_iris', 'src/css/iris.min.css', 'style',array(),'ectPlugin');
-     ect_Exists('ect_customStyle', 'src/css/style.css', 'style',null,'ectPlugin');
-       //*
-       //  Custom JS
-       //*
-       wp_enqueue_script('jquery-ui-core');
-       wp_enqueue_script('jquery-ui-draggable');
-       wp_enqueue_script('jquery-ui-slider');
-       wp_enqueue_script('jquery-ui-widget', false, array('jquery-ui-core'));
-       wp_enqueue_script('jquery-ui-mouse', false, array('jquery-ui-core'));
-       wp_enqueue_script('jquery-ui-datepicker', false, array('jquery-ui-core'));
-       wp_enqueue_script('jquery-ui-draggable', false, array('jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse'));
-       wp_enqueue_script('jquery-ui-slider', false, array('jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse'));
-       //*
-       //  Custom JS
-       //*
-       ect_Exists('ect_color', 'src/js/color.js', 'script',array('jquery'),'ectPlugin');
-       ect_Exists('ect_iris', 'src/js/iris.js', 'script',array('jquery-ui-core', 'jquery-ui-draggable', 'jquery-ui-slider'),'ectPlugin');
-       ect_Exists('ect_Timepicker', 'src/js/jquery.timepicker.min.js', 'script',array('jquery-ui-core'),'ectPlugin');
-       ect_Exists('ect_CustomScript', 'src/js/script.js', 'script',array(),'ectPlugin');
-     }
-     add_action('customize_controls_enqueue_scripts', 'ect_AdminEnqueueAll');
-
-   }
-
-
-
 
    if(!function_exists('ect_Exists')){
      function ect_Exists($name, $path, $type,$dependencies = array(),$exportType)

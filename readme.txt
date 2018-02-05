@@ -1,23 +1,22 @@
 === Easy Countdown Timer==
 Contributors: turcuciprian
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MU4RJNNF74QKY
-Tags: comments, spam
+Tags: countdown, timer, countdown-timer, short-code, easy, interface, time-zone, bold, color, name
 Requires at least: 4.6
-Tested up to: 4.9.1
-Stable tag: 1.2
+Tested up to: 4.9.2
+Stable tag: 1.9.7
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A very easy to use and intuitive countdown timer for wordpress. At the moment it shows the number of days left to a given date As a shortcode
+A very easy to use and intuitive countdown timer for wordpress. At the moment it shows the number of days left to a given date As a shortcode. You can add infinite shortcodes.
 
 
 == Description ==
 
-https://www.youtube.com/watch?v=ZAtYeaeSPRQ
-A very easy to use and intuitive countdown timer for WordPress. At the moment it shows the number of days left to a given date As a shortcode
-You can add infinite shortcodes trough the interface which is very easy and intuitive. You can remove shortcodes, name them.
-It works on all posts, pages and what ever has to do with shortcodes in a usual WordPress usage.
+A very easy to use and intuitive countdown timer for WordPress. You select a Ending date, and you can choose a color and a font size and the numbers of days
+left will automatically be generated. Everything done with a click interface, easy as pie. Check out your admin panel menu at the bottom
+(search for Easy Countdown Timer) to get to the interface. You also have the option to set the timezone for the end date date to be relative to.
 
 Requires PHP
 
@@ -34,11 +33,13 @@ e.g.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= How do I configure a countdown timer? =
 
-An answer to that question.
+After activating the plugin, to generate a shortcode, you check out your admin panel menu. You should see "Easy Countdown Timer" at the bottom of it. (bottom left in the admin panel). Click it and you have all the options to configure there.
 
-= How do you use the plug?  =
+= What do I do after Configuring?  =
+
+At the bottom of the Easy Countdown Timer Settings page, you have a textbox with a shortcode. If you click the textbox it will automatically select everything in the textbox. Copy the selection (all the text in the textbox), and go to a page or post and paste it in the content inside the editor. Update
 
 
 == Screenshots ==
@@ -61,6 +62,17 @@ An answer to that question.
 = 1.2 =
 shortcodes are now dynamically created, you can add as many shortcodes as you want for date endings.
 
+= 1.9.5 =
+* New functionality , not based on database data
+* Data is based on shortcode attributes
+
+= 1.9.6 =
+* Bold Shortcode attribute and UI Functionality
+
+= 1.9.7 =
+Added Timezone feature
+
+
 
 == Upgrade Notice ==
 
@@ -72,3 +84,15 @@ No database changes. Functionality should not be affected
 
 = 1.2 =
 Shortcodes from the previous version will not be affected but the functionality will not be available.
+
+= 1.9.5 =
+Shortcodes have all the data. The database fields are irrelevant now. The previous version database data is not being used
+
+= 1.9.6 =
+Does not affect the previous version functionality
+
+= 1.9.6 =
+Does not affect the previous version functionality
+
+= 1.9.7 =
+Does not affect the previous version functionality
