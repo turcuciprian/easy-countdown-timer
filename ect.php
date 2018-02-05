@@ -73,54 +73,53 @@ function ectShortAll($atts){
 	$tColor = $atts['color'];
 	$tFontSize = $atts['fontsize'];
 	$tBold = $atts['bold'];
+	$tTimezone = $atts['timezone'];
 
 	$boldText = ($tBold=='true'?'bold':'normal');
 
-	$daysLeft = ect_daysUntil($tDate);
+	$daysLeft = ect_daysUntil($tDate,$tTimezone);
 	$result = '<span style="font-size: '.$tFontSize.';color:'.$tColor.';font-weight:'.$boldText.'">'.$daysLeft.'</span>';
 	if($result>=0){
 		return $result;
 	}
 	return 0;
 }
-function ect_daysUntil($date){
+function ect_daysUntil($date,$timezone){
+	date_default_timezone_set($timezone);
 	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24)+1 : FALSE;
 }
 
+ if(!function_exists('ect_Exists')){
+   function ect_Exists($name, $path, $type,$dependencies = array(),$exportType)
+   {
+     $fileExists = false;
 
-//widget
-
-   if(!function_exists('ect_Exists')){
-     function ect_Exists($name, $path, $type,$dependencies = array(),$exportType)
-     {
-       $fileExists = false;
-
-       if($exportType==='theme'){
-         $file = get_template_direectry_uri().'/'.$path;
-       }else{
-         $file = plugin_dir_url(__FILE__).$path;
+     if($exportType==='theme'){
+       $file = get_template_direectry_uri().'/'.$path;
+     }else{
+       $file = plugin_dir_url(__FILE__).$path;
+     }
+       $plugin_file_headers = @get_headers($file);
+       if (!$plugin_file_headers || strpos($plugin_file_headers[0], '404') > 0) {
+           //file does not exist
+         $fileExists = false;
+       } else {
+           //file exists if a plugin path
+         $fileExists = true;
        }
-         $plugin_file_headers = @get_headers($file);
-         if (!$plugin_file_headers || strpos($plugin_file_headers[0], '404') > 0) {
-             //file does not exist
-           $fileExists = false;
+     //inside theme path file existance ?
+     // Custom Script
+     if ($fileExists) {
+         if ($type === 'style') {
+             wp_register_style($name, $file);
+             wp_enqueue_style($name);
          } else {
-             //file exists if a plugin path
-           $fileExists = true;
+             wp_register_script($name, $file, $dependencies);
+             wp_enqueue_script($name);
          }
-       //inside theme path file existance ?
-       // Custom Script
-       if ($fileExists) {
-           if ($type === 'style') {
-               wp_register_style($name, $file);
-               wp_enqueue_style($name);
-           } else {
-               wp_register_script($name, $file, $dependencies);
-               wp_enqueue_script($name);
-           }
-       }
      }
    }
+ }
 
 
 
