@@ -8,7 +8,7 @@
    Author: Ciprian Turcu
    Version: 1.9.7
    Author URI: http://www.ciprianturcu.com
-   tags: timer, countdown, days, shorcode, simple, easy, until, left, datepicker
+   tags: timer, countdown, days, shorcode, simple, easy, until, left, datepicker, interface, time-zone, bold, color, name
    License: GPL2
  */
  // error_reporting(E_ALL); ini_set('display_errors', '1');
