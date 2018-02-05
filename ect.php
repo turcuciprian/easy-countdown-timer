@@ -124,10 +124,6 @@ function ect_daysUntil($date){
 
 
 
-require_once 'widget.php';
-
-
-
 function ectRemoveCustomizer( $components ) {
     $i = array_search( 'widgets', $components );
     if ( false !== $i ) {
