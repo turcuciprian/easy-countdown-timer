@@ -1,10 +1,10 @@
 === Easy Countdown Timer==
-Contributors: turcuciprian
+Contributors: turcuciprian, ioanachichernea
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MU4RJNNF74QKY
 Tags: countdown, timer, countdown-timer, short-code, easy, interface, time-zone, bold, color, name
 Requires at least: 4.6
-Tested up to: 4.9.2
-Stable tag: 1.9.7
+Tested up to: 4.9.4
+Stable tag: 1.9.8
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,7 +16,8 @@ A very easy to use and intuitive countdown timer for wordpress. At the moment it
 
 A very easy to use and intuitive countdown timer for WordPress. You select a Ending date, and you can choose a color and a font size and the numbers of days
 left will automatically be generated. Everything done with a click interface, easy as pie. Check out your admin panel menu at the bottom
-(search for Easy Countdown Timer) to get to the interface. You also have the option to set the timezone for the end date date to be relative to.
+(search for Easy Countdown Timer) to get to the interface. You also have the option to set the timezone for the end date date to be relative to. You have a live preview to see
+the exact end date, you can choose hours and minutes to the exact date, you can choose a timezone to that date
 
 Requires PHP
 
@@ -72,6 +73,14 @@ shortcodes are now dynamically created, you can add as many shortcodes as you wa
 = 1.9.7 =
 Added Timezone feature
 
+= 1.9.8 =
+Better ui organizing
+
+= 1.9.8.1 =
+Added live preview of what's to come
+Added timezones
+Added End time options
+
 
 
 == Upgrade Notice ==
@@ -95,4 +104,10 @@ Does not affect the previous version functionality
 Does not affect the previous version functionality
 
 = 1.9.7 =
+Does not affect the previous version functionality
+
+= 1.9.8 =
+Does not affect the previous version functionality
+
+= 1.9.8.1 =
 Does not affect the previous version functionality

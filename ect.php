@@ -6,7 +6,7 @@
 	 At the moment it shows the number of days left to a given date As a shortcode
 	 You can add infinite shortcodes.
    Author: Ciprian Turcu
-   Version: 1.9.7
+   Version: 1.9.8.1
    Author URI: http://www.ciprianturcu.com
    tags: timer, countdown, days, shorcode, simple, easy, until, left, datepicker, interface, time-zone, bold, color, name
    License: GPL2
@@ -69,6 +69,8 @@ function ectShortcodeDate1( $atts ){
 	add_shortcode( 'ectShortcode', 'ectShortAll');
 function ectShortAll($atts){
 	$tName = $atts['name'];
+	$tHours = $atts['hour'];
+	$tMinutes = $atts['minutes'];
 	$tDate = $atts['date'];
 	$tColor = $atts['color'];
 	$tFontSize = $atts['fontsize'];
@@ -76,8 +78,8 @@ function ectShortAll($atts){
 	$tTimezone = $atts['timezone'];
 
 	$boldText = ($tBold=='true'?'bold':'normal');
-
-	$daysLeft = ect_daysUntil($tDate,$tTimezone);
+$exactDate = $tDate.' '.$tHours.':'.$tMinutes.':00';
+	$daysLeft = ect_daysUntil($exactDate,$tTimezone);
 	$result = '<span style="font-size: '.$tFontSize.';color:'.$tColor.';font-weight:'.$boldText.'">'.$daysLeft.'</span>';
 	if($result>=0){
 		return $result;
@@ -86,7 +88,7 @@ function ectShortAll($atts){
 }
 function ect_daysUntil($date,$timezone){
 	date_default_timezone_set($timezone);
-	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24)+1 : FALSE;
+	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24) : FALSE;
 }
 
  if(!function_exists('ect_Exists')){
