@@ -34,26 +34,48 @@ function ect_menu_options_page(){
 	<h2>Easy Countdown Timer Settings</h2>
   	<div id="ectPopupContent">
   	</div>
+		<script type="text/javascript">
+	    var isOnlyPreview = false;
+	    var ectProperties = [{
+	        'ectPopupContent': {
+	          timeout: [],
+	          pDate: '2018/2/12',
+	          pHour: '00',
+	          pMinutes: '00',
+	          pFormat: 'D then H:M:S',
+	          fontSize: '32px',
+	          color: '#F00',
+	          fontWeight: 'bold'
+	        }
+	      }
+	    ];
+	  </script>
 	<?php
 }
 
 add_action( 'admin_menu', 'ect_plugin_menu' );
 // Register style sheet.
 if($_GET['page']=='ect-menu'){
-	add_action( 'admin_enqueue_scripts', 'ect_register_plugin_styles' );
+	add_action( 'admin_enqueue_scripts', 'ect_admin_register_plugin_styles' );
+}
+add_action( 'wp_enqueue_scripts', 'ect_register_plugin_styles' );
+
+//register/enqueue style callback function
+function ect_admin_register_plugin_styles() {
+	//script
+	wp_register_script( 'ectCommonsReact', plugins_url( 'src/js/commons.js', __FILE__ ),[],null,true  );
+	wp_enqueue_script( 'ectCommonsReact' );
+	wp_register_script( 'ectBundleReact', plugins_url( 'src/js/bundle.js', __FILE__ ),['ectCommonsReact'],null, true  );
+	wp_enqueue_script( 'ectBundleReact' );
 }
 //register/enqueue style callback function
-function ect_register_plugin_styles() {
+function ect_register_plugin_styles(){
 	?>
 	<script type="text/javascript">
-		window.ectPath = '<?php echo esc_url( site_url( '/' ).'wp-json' ); ?>';
+	var isOnlyPreview = true;
+		var ectProperties = [];
 	</script>
 	<?php
-	//style
-	wp_register_style( 'ectJqueryUi', plugins_url( 'jquery-ui.min.css', __FILE__ )  );
-	wp_enqueue_style( 'ectJqueryUi' );
-	wp_register_style( 'ectStyles', plugins_url( 'style.css', __FILE__ )  );
-	wp_enqueue_style( 'ectStyles' );
 	//script
 	wp_register_script( 'ectCommonsReact', plugins_url( 'src/js/commons.js', __FILE__ ),[],null,true  );
 	wp_enqueue_script( 'ectCommonsReact' );
@@ -76,11 +98,30 @@ function ectShortAll($atts){
 	$tFontSize = $atts['fontsize'];
 	$tBold = $atts['bold'];
 	$tTimezone = $atts['timezone'];
+	$tTimeFormat = $atts['timeformat'];
+	$ectIDValue = 'ect_shortcode_'.substr(md5($tName.$tHours.$tMinutes.$tDate.$tColor.$tFontSize.$tBold.$tTimezone.$tTimeFormat.get_the_ID().rand(0, 100)),0,10);
+
 
 	$boldText = ($tBold=='true'?'bold':'normal');
 $exactDate = $tDate.' '.$tHours.':'.$tMinutes.':00';
 	$daysLeft = ect_daysUntil($exactDate,$tTimezone);
-	$result = '<span style="font-size: '.$tFontSize.';color:'.$tColor.';font-weight:'.$boldText.'">'.$daysLeft.'</span>';
+	$result = "<div id=\"$ectIDValue\">
+	</div>
+	<script type=\"text/javascript\">
+		ectProperties.push({
+				'$ectIDValue': {
+					timeout: [],
+					pDate: '$tDate',
+					pTimezoneOffset: '$tTimezone',
+					pHour: '$tHours',
+					pMinutes: '$tMinutes',
+					pFormat: '$tTimeFormat',
+					fontSize: '$tFontSize',
+					color: '$tColor',
+					fontWeight: '$tBold'
+				}
+			});
+	</script>";
 	if($result>=0){
 		return $result;
 	}
