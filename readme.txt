@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: countdown, timer, countdown-timer, short-code, easy, interface, time-zone, bold, color, name
 Requires at least: 4.6
 Tested up to: 4.9.4
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -32,8 +32,8 @@ This section describes how to install the plugin and get it working.
 e.g.
 
 1. Upload the plugin files to the `/wp-content/plugins/easy-countdown-timer directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-1. Use the Settings->Easy Countdown Timer creen to configure the plugin
+2. Activate the plugin through the 'Plugins' screen in WordPress
+3. Use the Settings->Easy Countdown Timer creen to configure the plugin
 
 
 == Frequently Asked Questions ==
@@ -51,9 +51,12 @@ At the bottom of the Easy Countdown Timer Settings page, you have a textbox with
 
 1. This is the admin panel view of the plugin where you select a End date you want to count the days to and you can get the shortcode you want to use
 
-2. This is a admin panel post page where you post the shortcode (example)
+2. This is the styles page of the admin panel view of the plugin where you select a End date you want to count the days to and you can get the shortcode you want to use
 
-3, This is the site front end that's showing the result of the shortcode used with the easy coutdown timer plugin
+3. This is a admin panel post page where you post the shortcode
+
+4. This is the site front end that's showing the result of the shortcode used with the easy coutdown timer plugin
+
 
 == Changelog ==
 
@@ -92,6 +95,10 @@ Added End time options
 * Color picker now shows the color
 * Reorganized the structure of the fields based on importance
 
+= 2.0.0 =
+
+* Organized configuration content in tabs
+
 == Upgrade Notice ==
 
 = 1.0.0 =
@@ -122,4 +129,7 @@ Does not affect the previous version functionality
 Does not affect the previous version functionality
 
 = 2.0.0 =
-New features have been added that require
+New features have been added that require the new functionality
+
+= 2.0.1 =
+Does not affect the previous version functionality
