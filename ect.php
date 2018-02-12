@@ -132,18 +132,36 @@ function ect_daysUntil($date,$timezone){
 	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24) : FALSE;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+//TinyMCE Above button
 add_action( 'media_buttons', function($editor_id){
     echo '<span id="ectPopupButton" class="button button-primary button-large">Insert Easy Countdown Timer</span>';
 } );
+//admin body
+
+function ect_admin_footer() {
+    ?>
+		<div class="popup">
+			<div id="ectPopupContent"></div>
+		</div>
+		<script type="text/javascript">
+    var isOnlyPreview = false;
+    var idOfContainer = 'testID';
+    var ectProperties = [{
+        'ectPopupContent': {
+          timeout: [],
+          pDate: '2018/2/12',
+          pTimezoneOffset: '+7200000',
+          pHour: '00',
+          pMinutes: '00',
+          pFormat: 'D then H:M:S',
+          fontSize: '32px',
+          color: '#F00',
+          fontWeight: 'bold'
+        }
+      }
+    ];
+  </script>
+    <?php
+}
+
+add_action('admin_footer', 'ect_admin_footer',1000);
