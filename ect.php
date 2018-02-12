@@ -55,14 +55,14 @@ function ect_menu_options_page(){
 
 add_action( 'admin_menu', 'ect_plugin_menu' );
 // Register style sheet.
-if($_GET['page']=='ect-menu'){
 	add_action( 'admin_enqueue_scripts', 'ect_admin_register_plugin_styles' );
-}
 add_action( 'wp_enqueue_scripts', 'ect_register_plugin_styles' );
 
 //register/enqueue style callback function
 function ect_admin_register_plugin_styles() {
 	//script
+	wp_register_script( 'ectCustomjQuery', plugins_url( 'src/js/script.js', __FILE__ ),['jquery-core'],null, true );
+	wp_enqueue_script( 'ectCustomjQuery' );
 	wp_register_script( 'ectCommonsReact', plugins_url( 'src/js/commons.js', __FILE__ ),[],null,true  );
 	wp_enqueue_script( 'ectCommonsReact' );
 	wp_register_script( 'ectBundleReact', plugins_url( 'src/js/bundle.js', __FILE__ ),['ectCommonsReact'],null, true  );
@@ -131,3 +131,19 @@ function ect_daysUntil($date,$timezone){
 	date_default_timezone_set($timezone);
 	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24) : FALSE;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+add_action( 'media_buttons', function($editor_id){
+    echo '<span id="ectPopupButton" class="button button-primary button-large">Insert Easy Countdown Timer</span>';
+} );
