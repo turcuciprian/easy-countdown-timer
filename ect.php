@@ -12,48 +12,6 @@
    License: GPL2
  */
  // error_reporting(E_ALL); ini_set('display_errors', '1');
-function sanitize_option_ectDatePickerA($value){
-	return esc_html($value);
-}
-function ect_plugin_menu() {
-	add_menu_page( 'Easy Countdown Timer', 'Easy Countdown Timer', 'manage_options', 'ect-menu','ect_menu_options_page' );
-}
-function ect_menu_options_page(){
-	//if form was sumbitted
-	$datePickerA = get_option('ect-datePickerA');
-	if($_POST){
-		$getNounce = $_REQUEST['_wpnonce'];
-		$nonce = wp_verify_nonce( $getNounce, 'post-ect-data' );
-		if(!$nonce){
-			$datePickerA = $_POST['datePickerA'];
-			$datePickerA = wp_kses( $datePickerA );
-			update_option( 'ect-datePickerA', $datePickerA );
-		}
-	}
-?>
-	<h2>Easy Countdown Timer Settings</h2>
-  	<div id="ectPopupContent">
-  	</div>
-		<script type="text/javascript">
-	    var isOnlyPreview = false;
-	    var ectProperties = [{
-	        'ectPopupContent': {
-	          timeout: [],
-	          pDate: '2018/2/12',
-	          pHour: '00',
-	          pMinutes: '00',
-	          pFormat: 'D then H:M:S',
-	          fontSize: '32px',
-	          color: '#F00',
-	          fontWeight: 'bold'
-	        }
-	      }
-	    ];
-	  </script>
-	<?php
-}
-
-add_action( 'admin_menu', 'ect_plugin_menu' );
 // Register style sheet.
 	add_action( 'admin_enqueue_scripts', 'ect_admin_register_plugin_styles' );
 add_action( 'wp_enqueue_scripts', 'ect_register_plugin_styles' );
