@@ -6,7 +6,7 @@
 	 At the moment it shows the number of days left to a given date As a shortcode
 	 You can add infinite shortcodes.
    Author: Ciprian Turcu
-   Version: 2.0.1
+   Version: 2.0.2
    Author URI: http://www.ciprianturcu.com
    tags: timer, countdown, days, shorcode, simple, easy, until, left, datepicker, interface, time-zone, bold, color, name
    License: GPL2
@@ -14,7 +14,7 @@
  // error_reporting(E_ALL); ini_set('display_errors', '1');
 // Register style sheet.
 	add_action( 'admin_enqueue_scripts', 'ect_admin_register_plugin_styles' );
-add_action( 'wp_enqueue_scripts', 'ect_register_plugin_styles' );
+	add_action( 'wp_enqueue_scripts', 'ect_register_plugin_styles' );
 
 //register/enqueue style callback function
 function ect_admin_register_plugin_styles() {

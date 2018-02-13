@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: countdown, timer, countdown-timer, short-code, easy, interface, time-zone, bold, color, name
 Requires at least: 4.6
 Tested up to: 4.9.4
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,8 +17,7 @@ A very easy to use and intuitive countdown timer for wordpress. At the moment it
 [FREE FEATURE REQUEST](https://docs.google.com/forms/d/e/1FAIpQLSfiw4ZMZP_Zln4nzafFCnMF-uxBf1GpHh98qtTIh-X8uL-ZOA/viewform?usp=sf_link)
 
 A very easy to use and intuitive countdown timer for WordPress. You select a Ending date, and you can choose a color and a font size and the numbers of days, hours, minutes, seconds
-left will automatically be generated. Everything done with a mouse click, select of options, easy as pie. Check out your admin panel menu at the bottom
-(search for Easy Countdown Timer) to get to the interface. You also have the option to set the timezone for the end date date to be relative to and select a timer format based on various options. You have a live preview to see
+left will automatically be generated. Everything done with a mouse click, select of options, easy as pie. Check out any page or post for a blue button above the editor that says "Insert Easy Countdown Timer" to get to the interface. You also have the option to set the timezone for the end date date to be relative to and select a timer format based on various options. You have a live preview to see
 the exact end date, you can choose hours and minutes to the exact date, you can choose a timezone to that date.
 
 You also have a live countdown where you place the shortcode, based on the format you selected.
@@ -98,6 +97,12 @@ Added End time options
 = 2.0.0 =
 
 * Organized configuration content in tabs
+
+= 2.0.2 =
+
+* Removed the Admin page
+* Added all the configuration in a popup in page/post editor page
+* interface is much cleaner
 
 == Upgrade Notice ==
 
