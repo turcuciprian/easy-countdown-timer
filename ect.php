@@ -21,10 +21,15 @@ function ect_admin_register_plugin_styles() {
 	//script
 	wp_register_script( 'ectCustomjQuery', plugins_url( 'src/js/script.js', __FILE__ ),['jquery-core'],null, true );
 	wp_enqueue_script( 'ectCustomjQuery' );
-	wp_register_script( 'ectCommonsReact', plugins_url( 'src/js/commons.js', __FILE__ ),[],null,true  );
+
+	wp_register_script( 'ectCommonsReact', plugins_url( 'src/js/commons.js', __FILE__ ),['ectCustomjQuery'],null,true  );
 	wp_enqueue_script( 'ectCommonsReact' );
-	wp_register_script( 'ectBundleReact', plugins_url( 'src/js/bundle.js', __FILE__ ),['ectCommonsReact'],null, true  );
+	wp_register_script( 'ectBundleReact', plugins_url( 'src/js/bundle.js', __FILE__ ),['ectCommonsReact'],null,true  );
 	wp_enqueue_script( 'ectBundleReact' );
+	wp_register_style( 'ectAdminStyle', plugins_url( 'src/css/adminStyle.css', __FILE__ ) );
+	wp_enqueue_style( 'ectAdminStyle' );
+
+
 }
 //register/enqueue style callback function
 function ect_register_plugin_styles(){
@@ -98,13 +103,14 @@ add_action( 'media_buttons', function($editor_id){
 
 function ect_admin_footer() {
     ?>
-		<div class="popup">
+
+		<div class="ectMainPopupContainer hidden">
 			<div id="ectPopupContent"></div>
 		</div>
 		<script type="text/javascript">
     var isOnlyPreview = false;
-    var idOfContainer = 'testID';
-    var ectProperties = [{
+    var ectProperties = [
+			{
         'ectPopupContent': {
           timeout: [],
           pDate: '2018/2/12',
@@ -119,7 +125,7 @@ function ect_admin_footer() {
       }
     ];
   </script>
+
     <?php
 }
-
 add_action('admin_footer', 'ect_admin_footer',1000);
