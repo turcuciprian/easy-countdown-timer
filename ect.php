@@ -80,7 +80,7 @@ function ectShortAll($atts){
 	$boldText = ($numberBold=='true'?'bold':'normal');
 $exactDate = $tDate.' '.$tHours.':'.$tMinutes.':00';
 	$daysLeft = ect_daysUntil($exactDate,$tTimezone);
-	$result = "<div id=\"$ectIDValue\">
+	$result = "<div class=\"ectPopupContent\" id=\"$ectIDValue\">
 	</div>
 	<script type=\"text/javascript\">
 		ectProperties.push(
@@ -130,7 +130,7 @@ function ect_admin_footer() {
     ?>
 
 		<div class="ectMainPopupContainer hidden">
-			<div id="ectPopupContent"></div>
+			<div class="ectPopupContent" id="ectPopupContent"></div>
 		</div>
 		<script type="text/javascript">
 			var devMode = false;
