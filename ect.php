@@ -6,7 +6,7 @@
 	 At the moment it shows the number of days left to a given date As a shortcode
 	 You can add infinite shortcodes.
    Author: Ciprian Turcu
-   Version: 2.0.3
+   Version: 2.0.4
    Author URI: http://www.ciprianturcu.com
    tags: timer, countdown,timezone, live 
    License: GPL2

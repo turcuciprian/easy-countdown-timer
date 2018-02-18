@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: countdown timer, timer, timer countdown, countdown, event countdown timer, animated countdown timer, birthday countdown, clock, count down, countdown, countdown clock, countdown form, countdown generator, countdown system, countdown timer, countdown timer, date countdown, event countdown, flash countdown, html5 countdown, jQuery countdown, time counter, website countdown, wp countdown, wp countdown timer, hours, minutes, seconds, days, weeks, months, years, custom, change, live, preview, shortcode, button, tinimce, wysiwyg, select, easy
 Requires at least: 4.6
 Tested up to: 4.9.4
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -30,7 +30,8 @@ You can also customize the Years/Months/Weeks/Days/Hours/Minutes/Seconds Text
 * Make text bold
 * Change timer color
 * Change font size
-* Customize the Years/Months/Weeks/Days/Hours/Minutes/Seconds text
+* Customize and style with color, size and weight the Years/Months/Weeks/Days/Hours/Minutes/Seconds text
+* Style with color, size and weight the Years/Months/Weeks/Days/Hours/Minutes/Seconds custom text
 
 
 You also have a live countdown where you place the shortcode, based on the format you selected.
@@ -52,11 +53,11 @@ e.g.
 
 = How do I configure a countdown timer? =
 
-After activating the plugin, to generate a shortcode, you check out your admin panel menu. You should see "Easy Countdown Timer" at the bottom of it. (bottom left in the admin panel). Click it and you have all the options to configure there.
+After activating the plugin, to generate a shortcode, You go to a post or page and you will notice a blue "Insert Timer" button at the top of the TinyMCE editor. Press it. a popup will appear where you get to customize it.
 
 = What do I do after Configuring?  =
 
-At the bottom of the Easy Countdown Timer Settings page, you have a textbox with a shortcode. If you click the textbox it will automatically select everything in the textbox. Copy the selection (all the text in the textbox), and go to a page or post and paste it in the content inside the editor. Update
+You just click the "insert Shortcode" button at the bottom left to add your shortcode to your editor. The popup should close and then you just update your post/page and view it to see the timer.
 
 
 == Screenshots ==
@@ -67,9 +68,18 @@ At the bottom of the Easy Countdown Timer Settings page, you have a textbox with
 
 3. This is a admin panel post page where you select styles for your timer
 
-4. This is a admin panel post page where you set the text for the Years/Months/Weeks/Days/Hours/Minutes/Seconds Replacing that text with anything you like
+4. This is a admin panel post page where you set the text for the Years/Months/Weeks/Days/Hours/Minutes/Seconds Replacing that text with anything you like. It's basically the configuration of the "custom text" tab looks like
 
-5. This is the site front end that's showing the result of the shortcode used with the easy coutdown timer plugin in a post or page
+5. How the timers look on your website
+
+6. After you click the |"insert Timer" blue button in your admin page (Above tinyMCE)
+
+7. What the date/time Picker looks like
+
+8. How The configuration of the styles tab looks like
+
+9. How The configuration of the general tab looks like
+
 
 
 == Changelog ==
@@ -130,6 +140,18 @@ Added End time options
 * Spaced live preview elements better
 * Fixed Bug regarding switching tabs and field selected values dissapearing
 
+= 2.0.4 =
+
+* Better Design
+* Solved bugs
+* Better User Experience
+* Able to change number colors
+* Able to change custom text (time/date) colors
+* Able to change number font size
+* Able to change custom text (time/date) font size
+* Able to change number weight
+* Able to change custom text (time/date) weight
+
 == Upgrade Notice ==
 
 = 1.0.0 =
@@ -171,3 +193,8 @@ Does not affect the previous version functionality
 = 2.0.3 =
 
 New variables added, the functionality from previous versions will not work.
+
+= 2.0.3 =
+
+New variables added, the functionality from previous versions will not work if using the new version and old shortcodes.
+
