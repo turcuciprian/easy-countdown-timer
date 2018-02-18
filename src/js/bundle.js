@@ -96342,38 +96342,18 @@ var MainContainer = function (_React$Component) {
         }
     }, {
         key: "ectInsertSC",
-        value: function (_ectInsertSC) {
-            function ectInsertSC() {
-                return _ectInsertSC.apply(this, arguments);
+        value: function ectInsertSC() {
+            if (typeof window.ectWPInsertSC != "undefined") {
+                window.ectWPInsertSC();
             }
-
-            ectInsertSC.toString = function () {
-                return _ectInsertSC.toString();
-            };
-
-            return ectInsertSC;
-        }(function () {
-            if (typeof ectInsertSC != "undefined") {
-                ectInsertSC();
-            }
-        })
+        }
     }, {
         key: "ectClosePopupButton",
-        value: function (_ectClosePopupButton) {
-            function ectClosePopupButton() {
-                return _ectClosePopupButton.apply(this, arguments);
+        value: function ectClosePopupButton() {
+            if (typeof window.ectWPClosePopupButton != "undefined") {
+                window.ectWPClosePopupButton();
             }
-
-            ectClosePopupButton.toString = function () {
-                return _ectClosePopupButton.toString();
-            };
-
-            return ectClosePopupButton;
-        }(function () {
-            if (typeof ectPopup != "undefined") {
-                ectClosePopupButton();
-            }
-        })
+        }
     }, {
         key: "render",
         value: function render() {
@@ -96606,9 +96586,9 @@ var EctShortcode = exports.EctShortcode = function (_React$Component) {
     key: 'render',
     value: function render() {
       var finalEndDate = this.props.endDate.year() + '/' + (this.props.endDate.month() + 1) + '/' + this.props.endDate.date();
-      var shortValue = '[ectShortcode timername="' + this.props.pName + '"   enddate="' + finalEndDate + '"  numbercolor= "' + this.props.pColor + '" colortxt="' + this.props.pColorTxt + '" numberfontsize="' + this.props.pFont + '"  fontsizetxt="' + this.props.pFontTxt + '"' + ' numberbold="' + this.props.chooseBold + '" numberboldtxt="' + this.props.pIsBoldTxt + '" enddatetimezone="' + this.props.pTimezoneOffset + '" endhour="' + this.props.pEndHour + '"  endminute= "' + this.props.pEndMinute + '" timeFormat="' + this.props.pTimeFormat + '" customtxtyears=" ' + this.props.pYears + '"  customtxtmonths="' + this.props.pMonths + '" customtxtweeks="' + this.props.pWeeks + '" customtxtdays="' + this.props.pDays + '" customtxthours="' + this.props.pHoursFormat + '" customtxtminutes="' + this.props.pMinutesFormat + '" customtxtseconds="' + this.props.pSecondsFormat + '" customTimerEndedTxt="' + this.props.pCustomTimerEndedTxt + '"]';
+      var shortValue = '[ectShortcode timername="' + this.props.pName + '"   enddate="' + finalEndDate + '"  numbercolor= "' + this.props.pColor + '" colortxt="' + this.props.pColorTxt + '" numberfontsize="' + this.props.pFont + '"  fontsizetxt="' + this.props.pFontTxt + '"' + ' numberbold="' + this.props.chooseBold + '" numberboldtxt="' + this.props.pIsBoldTxt + '" enddatetimezone="' + this.props.pTimezoneOffset + '" endhour="' + this.props.pEndHour + '"  endminute= "' + this.props.pEndMinute + '" timeFormat="' + this.props.pTimeFormat + '" customtxtyears=" ' + this.props.pYears + '"  customtxtmonths="' + this.props.pMonths + '" customtxtweeks="' + this.props.pWeeks + '" customtxtdays="' + this.props.pDays + '" customtxthours="' + this.props.pHoursFormat + '" customtxtminutes="' + this.props.pMinutesFormat + '" customtxtseconds="' + this.props.pSecondsFormat + '" customtimerendedtxt="' + this.props.pCustomTxtEndedTxt + '"]';
 
-      return _react2.default.createElement('div', { className: 'ectSortcode' }, _react2.default.createElement('label', null, 'Shortcode'), _react2.default.createElement('span', null, '(click to automatically select all, then copy)'), _react2.default.createElement('div', { className: 'shortcode' }, _react2.default.createElement('input', { id: 'ectSCInput', onClick: this.selectAllText, onChange: this.selectAllText, value: shortValue }), _react2.default.createElement('h4', null, 'This interface helps you generate customly a shortcode for later use with a wordpress plugin, what you select in the fields will be given to the shortcode as attributes and used later.')));
+      return _react2.default.createElement('div', { className: 'ectSortcode' }, _react2.default.createElement('div', { className: 'shortcode' }, _react2.default.createElement('input', { id: 'ectSCInput', onClick: this.selectAllText, onChange: this.selectAllText, value: shortValue })));
     }
   }]);
 
