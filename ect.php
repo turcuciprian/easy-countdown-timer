@@ -6,9 +6,9 @@
 	 At the moment it shows the number of days left to a given date As a shortcode
 	 You can add infinite shortcodes.
    Author: Ciprian Turcu
-   Version: 2.0.2
+   Version: 2.0.3
    Author URI: http://www.ciprianturcu.com
-   tags: timer, countdown, days, shorcode, simple, easy, until, left, datepicker, interface, time-zone, bold, color, name
+   tags: timer, countdown,timezone, live 
    License: GPL2
  */
  // error_reporting(E_ALL); ini_set('display_errors', '1');
@@ -35,7 +35,8 @@ function ect_admin_register_plugin_styles() {
 function ect_register_plugin_styles(){
 	?>
 	<script type="text/javascript">
-	var isOnlyPreview = true;
+	var devMode = true;
+    var isOnlyPreview = true;
 		var ectProperties = [];
 	</script>
 	<?php
@@ -53,37 +54,61 @@ function ectShortcodeDate1( $atts ){
 }
 	add_shortcode( 'ectShortcode', 'ectShortAll');
 function ectShortAll($atts){
-	$tName = $atts['name'];
-	$tHours = $atts['hour'];
-	$tMinutes = $atts['minutes'];
-	$tDate = $atts['date'];
-	$tColor = $atts['color'];
-	$tFontSize = $atts['fontsize'];
-	$tBold = $atts['bold'];
-	$tTimezone = $atts['timezone'];
+	$tName = $atts['timername'];
+	$endDate = $atts['enddate'];
+	$numberColor = $atts['numbercolor'];
+	$ColorTxt = $atts['colortxt'];
+	$numberFontSize = $atts['numberfontsize'];
+	$FontSizeTxt = $atts['fontsizetxt'];
+	$numberBold = $atts['numberbold'];
+	$numberBoldTxt = $atts['numberboldtxt'];
+	$tTimezone = $atts['enddatetimezone'];
+	$endHours = $atts['endhour'];
+	$endMinutes = $atts['endminute'];
 	$tTimeFormat = $atts['timeformat'];
-	$ectIDValue = 'ect_shortcode_'.substr(md5($tName.$tHours.$tMinutes.$tDate.$tColor.$tFontSize.$tBold.$tTimezone.$tTimeFormat.get_the_ID().rand(0, 100)),0,10);
+	$cTxtYears = $atts['customtxtyears'];
+	$cTxtMonths = $atts['customtxtmonths'];
+	$cTxtWeeks = $atts['customtxtweeks'];
+	$cTxtDays = $atts['customtxtdays'];
+	$cTxtHours = $atts['customtxthours'];
+	$cTxtMinutes= $atts['customtxtminutes'];
+	$cTxtSeconds = $atts['customtxtseconds'];
+	$customTimerEndedTxt = $atts['customTimerEndedTxt'];
+	$ectIDValue = 'ect_shortcode_'.substr(md5($tName.$endHours.$endMinutes.$endDate.$ColorTxt.$numberFontSize.$numberBold.$tTimezone.$tTimeFormat.get_the_ID().rand(0, 100)),0,10);
 
 
-	$boldText = ($tBold=='true'?'bold':'normal');
+	$boldText = ($numberBold=='true'?'bold':'normal');
 $exactDate = $tDate.' '.$tHours.':'.$tMinutes.':00';
 	$daysLeft = ect_daysUntil($exactDate,$tTimezone);
 	$result = "<div id=\"$ectIDValue\">
 	</div>
 	<script type=\"text/javascript\">
-		ectProperties.push({
+		ectProperties.push(
+			{
 				'$ectIDValue': {
 					timeout: [],
-					pDate: '$tDate',
+					endDate: '$endDate',
 					pTimezoneOffset: '$tTimezone',
-					pHour: '$tHours',
-					pMinutes: '$tMinutes',
+					endHour: '$endHours',
+					endMinute: '$endMinutes',
 					pFormat: '$tTimeFormat',
-					fontSize: '$tFontSize',
-					color: '$tColor',
-					fontWeight: '$tBold'
+					fontSize: '$numberFontSize',
+					fontSizeTxt: '$FontSizeTxt',
+					color: '$numberColor',
+					colorTxt: '$ColorTxt',
+					isBold: $numberBold,
+					isBoldTxt: $numberBoldTxt,
+					customTxtYears: '$cTxtYears',
+					customTxtMonths: '$cTxtMonths',
+					customTxtWeeks: '$cTxtWeeks',
+					customTxtDays: '$cTxtDays',
+					customTxtHours: '$cTxtHours',
+					customTxtMinutes: '$cTxtMinutes',
+					customTxtSeconds: '$cTxtSeconds',
+					customTimerEndedTxt: '$customTimerEndedTxt'
 				}
-			});
+			}
+		);
 	</script>";
 	if($result>=0){
 		return $result;
@@ -97,7 +122,7 @@ function ect_daysUntil($date,$timezone){
 
 //TinyMCE Above button
 add_action( 'media_buttons', function($editor_id){
-    echo '<span id="ectPopupButton" class="button button-primary button-large">Insert Easy Countdown Timer</span>';
+    echo '<span id="ectPopupButton" class="button button-primary button-large">Insert Timer</span>';
 } );
 //admin body
 
@@ -108,22 +133,34 @@ function ect_admin_footer() {
 			<div id="ectPopupContent"></div>
 		</div>
 		<script type="text/javascript">
-    var isOnlyPreview = false;
-    var ectProperties = [
+			var devMode = false;
+    		var isOnlyPreview = false;
+    		var ectProperties = [
 			{
-        'ectPopupContent': {
-          timeout: [],
-          pDate: '2018/2/12',
-          pTimezoneOffset: '+7200000',
-          pHour: '00',
-          pMinutes: '00',
-          pFormat: 'D then H:M:S',
-          fontSize: '32px',
-          color: '#F00',
-          fontWeight: 'bold'
-        }
-      }
-    ];
+				'ectPopupContent': {
+					timeout: [],
+					endDate: '2029/2/16',
+					pTimezoneOffset: '+7200000',
+					endHour: '00',
+					endMinute: '00',
+					pFormat: 'D then H:M:S',
+					fontSize: 172,
+					fontSizeTxt: 32,
+					color: 'green',
+					colorTxt: '#F00',
+					isBold: false,
+					isBoldTxt: false,
+					customTxtYears: 'Years',
+					customTxtMonths: 'Months',
+					customTxtWeeks: 'Weeks',
+					customTxtDays: 'Days',
+					customTxtHours: 'Hours',
+					customTxtMinutes: 'Minutes',
+					customTxtSeconds: 'Seconds',
+					customTimerEndedTxt: 'Timer Ended'
+				}
+			}
+		];
   </script>
 
     <?php

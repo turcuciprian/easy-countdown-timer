@@ -1,31 +1,34 @@
-jQuery(document).ready(function($){
-  var popupButton = $('#ectPopupButton');
-  var ectPopup = $('.ectMainPopupContainer');
-  var ectInsertSC = $('#ectInsertSC'); //popup insert Button
-  var ectSCInput = $('#ectSCInput'); //popup Shortcode Input
-  var ectClosePopupButton = $('.ectClosePopupButton'); //close popup button
+var ectInsertSC = jQuery("#ectInsertSC"); //popup insert Button
+var ectClosePopupButton = jQuery(".ectClosePopupButton"); //close popup button
 
-  if(popupButton[0]){
-    popupButton.on('click',function(e){
-      ectPopup.removeClass('hidden');
-      console.log('test');
-    });
-    //insert into tinymce editor
-    if(ectInsertSC[0]){
-
-    ectInsertSC.on('click',function(){
-      let ShortcodeValue = ectSCInput.val();
-      tinyMCE.activeEditor.selection.setContent(ShortcodeValue);
-      ectPopup.addClass('hidden');
-
-    });
+var popupButton = jQuery("#ectPopupButton");
+if (popupButton[0]) {
+  var ectPopup = jQuery(".ectMainPopupContainer");
+  popupButton.on("click", function(e) {
+    ectPopup.removeClass("hidden");
+  });
+}
+//insert into tinymce editor
+function ectWPInsertSC() {
+  console.log('inserting?');
+  
+  var ectPopup = jQuery(".ectMainPopupContainer");
+  console.log(ectPopup);
+  
+  var ectSCInput = jQuery("#ectSCInput"); //popup Shortcode Input
+  if (ectSCInput[0]) {
+    
+    var ShortcodeValue = ectSCInput.val();
+    tinyMCE.activeEditor.selection.setContent(ShortcodeValue);
+    if (ectPopup[0]) {
+      
+      ectPopup.addClass("hidden");
+    }
   }
-    // close popup
-    if(ectClosePopupButton[0]){
-    ectClosePopupButton.on('click',function(){
-      ectPopup.addClass('hidden');
+}
 
-    });
-  }
-  }
-});
+// close popup
+function ectWPClosePopupButton() {
+  var ectPopup = jQuery(".ectMainPopupContainer");
+  ectPopup.addClass("hidden");
+}
