@@ -6,12 +6,12 @@
 	 At the moment it shows the number of days left to a given date As a shortcode
 	 You can add infinite shortcodes.
    Author: Ciprian Turcu
-   Version: 2.0.4
+   Version: 2.1
    Author URI: http://www.ciprianturcu.com
    tags: timer, countdown,timezone, live 
    License: GPL2
  */
- // error_reporting(E_ALL); ini_set('display_errors', '1');
+ error_reporting(E_ALL); ini_set('display_errors', '1');
 // Register style sheet.
 	add_action( 'admin_enqueue_scripts', 'ect_admin_register_plugin_styles' );
 	add_action( 'wp_enqueue_scripts', 'ect_register_plugin_styles' );
@@ -166,3 +166,61 @@ function ect_admin_footer() {
     <?php
 }
 add_action('admin_footer', 'ect_admin_footer',1000);
+
+//
+// rest
+//
+
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'ect/v2', '/getTimers', array(
+		'methods' => 'GET',
+		'callback' => 'ect_rest_get_timers_callback',
+	) );
+} );
+function ect_rest_get_timers_callback( $data ) {
+	$posts = array(
+		'author' => 'author 1'
+	);
+
+	return $posts[0]->author;
+}
+
+
+// custom database table
+function ect_db_install() {
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'ect_timers';
+	
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$sql = "CREATE TABLE `wordpress`.`ect_timers` 
+	( `ID` INT(9) NOT NULL AUTO_INCREMENT , 
+	`timerName` VARCHAR(256) NOT NULL , 
+	`fontSize` INT(3) NOT NULL , 
+	`fontSizeTxt` INT(3) NOT NULL , 
+	`color` VARCHAR(256) NOT NULL , 
+	`colorTxt` VARCHAR(256) NOT NULL , 
+	`isBold` BOOLEAN NOT NULL , `isBoldTxt` BOOLEAN NOT NULL , 
+	`timezoneOffset` VARCHAR(256) NOT NULL , 
+	`endHour` INT(2) NOT NULL , 
+	`endMinute` INT(2) NOT NULL , 
+	`utcTz` VARCHAR(256) NOT NULL , 
+	`yearsTxt` VARCHAR(256) NOT NULL , 
+	`monthsTxt` VARCHAR(256) NOT NULL , 
+	`weeksTxt` VARCHAR(256) NOT NULL , 
+	`daysTxt` VARCHAR(256) NOT NULL , 
+	`hoursTxt` VARCHAR(256) NOT NULL , 
+	`minutesTxt` VARCHAR(256) NOT NULL , 
+	`secondsTxt` VARCHAR(256) NOT NULL , 
+	`customEndedTxt` VARCHAR(256) NOT NULL , 
+	`layoutType` VARCHAR(256) NOT NULL , 
+	PRIMARY KEY (`ID`)) 
+	ENGINE = InnoDB;
+	) $charset_collate;";
+
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+
+}
+register_activation_hook( __FILE__, 'ect_db_install' );

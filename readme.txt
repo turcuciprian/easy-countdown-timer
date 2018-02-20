@@ -1,16 +1,15 @@
 === Easy Countdown Timer==
 Contributors: turcuciprian, ioanachichernea
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MU4RJNNF74QKY
-Tags: countdown timer, timer, timer countdown, countdown, event countdown timer, animated countdown timer, birthday countdown, clock, count down, countdown, countdown clock, countdown form, countdown generator, countdown system, countdown timer, countdown timer, date countdown, event countdown, flash countdown, html5 countdown, jQuery countdown, time counter, website countdown, wp countdown, wp countdown timer, hours, minutes, seconds, days, weeks, months, years, custom, change, live, preview, shortcode, button, tinimce, wysiwyg, select, easy
+Tags: countdown, timer,live, clock, second, minute, hour, day, week, month, year, color, size, pixel, animated, custom, easy, help
 Requires at least: 4.6
 Tested up to: 4.9.4
-Stable tag: 2.0.4
+Stable tag: 2.1
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A very easy to use and intuitive countdown timer for wordpress.Tt shows the number of Years,Months,weeks,days,hours,minutes,seconds left to a given date As a shortcode. You can add infinite shortcodes and infinite live countdown timers in the front end, on your website. You can customize a timezone that the timer is supposed to count down to, pick a format, choose a color, choose a font size and even make it bold. Exciting features ahead.
-
+Easy Countdown Timer with many features, styles, options, unlimited timers, modify font size, color, weight bold, modify colors, modify the text, end date and end time picker, timezone, all in a shortcode in your admin panel. Add in any post or page or custom post type. Easy.
 
 == Description ==
 
@@ -152,6 +151,12 @@ Added End time options
 * Able to change number weight
 * Able to change custom text (time/date) weight
 
+= 2.1 =
+
+* timers are now saved in the backend
+* You can view and delete existing timers
+* You can edit timer data
+
 == Upgrade Notice ==
 
 = 1.0.0 =
@@ -198,3 +203,6 @@ New variables added, the functionality from previous versions will not work.
 
 New variables added, the functionality from previous versions will not work if using the new version and old shortcodes.
 
+= 2.1 =
+
+New features have been added that require the new functionality. Previous functionality will not work
