@@ -183,12 +183,12 @@ add_action( 'rest_api_init', function () {
 		'callback' => 'ect_rest_add_timers_callback',
 	) );
 } );
-function ect_rest_get_timers_callback( $data ) {
-	$posts = array(
-		'author' => 'author 1'
-	);
-
-	return $posts[0]->author;
+function ect_rest_get_timers_callback( ) {
+	global $wpdb;
+	$all=$wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."ect_timers;"); 
+	
+	if ( $all ) 
+	return $all;
 };
 // add timer CALLBACK
 function ect_rest_add_timers_callback($data){
