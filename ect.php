@@ -172,9 +172,15 @@ add_action('admin_footer', 'ect_admin_footer',1000);
 //
 
 add_action( 'rest_api_init', function () {
+	//get timers
 	register_rest_route( 'ect/v2', '/getTimers', array(
 		'methods' => 'GET',
 		'callback' => 'ect_rest_get_timers_callback',
+	) );
+	//add timer
+	register_rest_route( 'ect/v2', '/addTimer', array(
+		'methods' => 'PUT',
+		'callback' => 'ect_rest_add_timers_callback',
 	) );
 } );
 function ect_rest_get_timers_callback( $data ) {
@@ -183,9 +189,63 @@ function ect_rest_get_timers_callback( $data ) {
 	);
 
 	return $posts[0]->author;
+};
+// add timer CALLBACK
+function ect_rest_add_timers_callback($data){
+	global $wpdb;
+	$PutData = $data['data'];
+	$wpdb->insert( 
+		$wpdb->prefix.'ect_timers', 
+		array( 
+			'timerName' => $PutData['timerName'],
+			'userID' => $PutData['userID'],
+			'fontSize' => $PutData['fontSize'],
+			'fontSizeTxt' => $PutData['fontSizeTxt'],
+			'color' => $PutData['color'],
+			'colorTxt' => $PutData['colorTxt'],
+			'isBold' => $PutData['isBold'],
+			'isBoldTxt' => $PutData['isBoldTxt'],
+			'timezoneOffset' => $PutData['timezoneOffset'],
+			'endHour' => $PutData['endHour'],
+			'endMinute' => $PutData['endMinute'],
+			'utcTz' => $PutData['utcTz'],
+			'yearsTxt' => $PutData['yearsTxt'],
+			'monthsTxt' => $PutData['monthsTxt'],
+			'weeksTxt' => $PutData['weeksTxt'],
+			'daysTxt' => $PutData['daysTxt'],
+			'hoursTxt' => $PutData['hoursTxt'],
+			'minutesTxt' => $PutData['minutesTxt'],
+			'secondsTxt' => $PutData['secondsTxt'],
+			'customEndedTxt' => $PutData['customEndedTxt'],
+			'layoutType' => $PutData['layoutType']
+		), 
+		array( 
+			'%s', 
+			'%d', 
+			'%d',
+			'%d',
+			'%s', 
+			'%s',
+			'%d',
+			'%d',
+			'%s',
+			'%d',
+			'%d',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s'
+			) 
+	);
+	return ["Added Timer"];
+
 }
-
-
 // custom database table
 function ect_db_install() {
 	global $wpdb;
@@ -194,9 +254,10 @@ function ect_db_install() {
 	
 	$charset_collate = $wpdb->get_charset_collate();
 
-	$sql = "CREATE TABLE `wordpress`.`ect_timers` 
+	$sql = "CREATE TABLE `".$wpdb->prefix."ect_timers` 
 	( `ID` INT(9) NOT NULL AUTO_INCREMENT , 
 	`timerName` VARCHAR(256) NOT NULL , 
+	`userID` INT(9) NOT NULL , 
 	`fontSize` INT(3) NOT NULL , 
 	`fontSizeTxt` INT(3) NOT NULL , 
 	`color` VARCHAR(256) NOT NULL , 
