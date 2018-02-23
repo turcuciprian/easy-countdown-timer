@@ -193,55 +193,31 @@ function ect_rest_get_timers_callback( ) {
 // add timer CALLBACK
 function ect_rest_add_timers_callback($data){
 	global $wpdb;
-	$PutData = $data['data'];
 	$wpdb->insert( 
 		$wpdb->prefix.'ect_timers', 
 		array( 
-			'timerName' => $PutData['timerName'],
-			'userID' => $PutData['userID'],
-			'fontSize' => $PutData['fontSize'],
-			'fontSizeTxt' => $PutData['fontSizeTxt'],
-			'color' => $PutData['color'],
-			'colorTxt' => $PutData['colorTxt'],
-			'isBold' => $PutData['isBold'],
-			'isBoldTxt' => $PutData['isBoldTxt'],
-			'timezoneOffset' => $PutData['timezoneOffset'],
-			'endHour' => $PutData['endHour'],
-			'endMinute' => $PutData['endMinute'],
-			'utcTz' => $PutData['utcTz'],
-			'yearsTxt' => $PutData['yearsTxt'],
-			'monthsTxt' => $PutData['monthsTxt'],
-			'weeksTxt' => $PutData['weeksTxt'],
-			'daysTxt' => $PutData['daysTxt'],
-			'hoursTxt' => $PutData['hoursTxt'],
-			'minutesTxt' => $PutData['minutesTxt'],
-			'secondsTxt' => $PutData['secondsTxt'],
-			'customEndedTxt' => $PutData['customEndedTxt'],
-			'layoutType' => $PutData['layoutType']
-		), 
-		array( 
-			'%s', 
-			'%d', 
-			'%d',
-			'%d',
-			'%s', 
-			'%s',
-			'%d',
-			'%d',
-			'%s',
-			'%d',
-			'%d',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s'
-			) 
+			'timerName' => $data['timerName'],
+			'userID' => $data['userID'],
+			'fontSize' => $data['fontSize'],
+			'fontSizeTxt' => $data['fontSizeTxt'],
+			'color' => $data['color'],
+			'colorTxt' => $data['colorTxt'],
+			'isBold' => $data['isBold'],
+			'isBoldTxt' => $data['isBoldTxt'],
+			'timezoneOffset' => $data['timezoneOffset'],
+			'endHour' => $data['endHour'],
+			'endMinute' => $data['endMinute'],
+			'utcTz' => $data['utcTz'],
+			'yearsTxt' => $data['yearsTxt'],
+			'monthsTxt' => $data['monthsTxt'],
+			'weeksTxt' => $data['weeksTxt'],
+			'daysTxt' => $data['daysTxt'],
+			'hoursTxt' => $data['hoursTxt'],
+			'minutesTxt' => $data['minutesTxt'],
+			'secondsTxt' => $data['secondsTxt'],
+			'customEndedTxt' => $data['customEndedTxt'],
+			'layoutType' => $data['layoutType']
+		)
 	);
 	return ["Added Timer"];
 
