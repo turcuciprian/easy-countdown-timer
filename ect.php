@@ -52,28 +52,37 @@ function ectShortcodeDate1( $atts ){
 	$result = ect_daysUntil($datePickerA);
 	return $result;
 }
-	add_shortcode( 'ectShortcode', 'ectShortAll');
+	add_shortcode( 'ectSc', 'ectShortAll');
 function ectShortAll($atts){
-	$tName = $atts['timername'];
-	$endDate = $atts['enddate'];
-	$numberColor = $atts['numbercolor'];
-	$ColorTxt = $atts['colortxt'];
-	$numberFontSize = $atts['numberfontsize'];
-	$FontSizeTxt = $atts['fontsizetxt'];
-	$numberBold = $atts['numberbold'];
-	$numberBoldTxt = $atts['numberboldtxt'];
-	$tTimezone = $atts['enddatetimezone'];
-	$endHours = $atts['endhour'];
-	$endMinutes = $atts['endminute'];
-	$tTimeFormat = $atts['timeformat'];
-	$cTxtYears = $atts['customtxtyears'];
-	$cTxtMonths = $atts['customtxtmonths'];
-	$cTxtWeeks = $atts['customtxtweeks'];
-	$cTxtDays = $atts['customtxtdays'];
-	$cTxtHours = $atts['customtxthours'];
-	$cTxtMinutes= $atts['customtxtminutes'];
-	$cTxtSeconds = $atts['customtxtseconds'];
-	$customTimerEndedTxt = $atts['customTimerEndedTxt'];
+	global $wpdb;
+	if(!isset($atts['id'])){
+		return;
+	}
+	$timerID = $atts['id'];
+	//
+	$getData = $wpdb->get_row( "SELECT * FROM `".$wpdb->prefix."ect_timers`  WHERE ID = ".$timerID.";" );
+	$finalArr = unserialize($getData->allData);
+	
+	$tName = 'Timer '.$timerID;
+	$endDate = $finalArr['enddate'];
+	$numberColor = $finalArr['numbercolor'];
+	$ColorTxt = $finalArr['colortxt'];
+	$numberFontSize = $finalArr['numberfontsize'];
+	$FontSizeTxt = $finalArr['fontsizetxt'];
+	$numberBold = $finalArr['numberbold'];
+	$numberBoldTxt = $finalArr['numberboldtxt'];
+	$tTimezone = $finalArr['enddatetimezone'];
+	$endHours = $finalArr['endhour'];
+	$endMinutes = $finalArr['endminute'];
+	$tTimeFormat = $finalArr['timeformat'];
+	$cTxtYears = $finalArr['customtxtyears'];
+	$cTxtMonths = $finalArr['customtxtmonths'];
+	$cTxtWeeks = $finalArr['customtxtweeks'];
+	$cTxtDays = $finalArr['customtxtdays'];
+	$cTxtHours = $finalArr['customtxthours'];
+	$cTxtMinutes= $finalArr['customtxtminutes'];
+	$cTxtSeconds = $finalArr['customtxtseconds'];
+	$customTimerEndedTxt = $finalArr['customTimerEndedTxt'];
 	$ectIDValue = 'ect_shortcode_'.substr(md5($tName.$endHours.$endMinutes.$endDate.$ColorTxt.$numberFontSize.$numberBold.$tTimezone.$tTimeFormat.get_the_ID().rand(0, 100)),0,10);
 
 
@@ -186,22 +195,43 @@ add_action( 'rest_api_init', function () {
 function ect_rest_get_timers_callback( ) {
 	global $wpdb;
 	$all=$wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."ect_timers;"); 
-	$all = unserialize($all);
-	exit;
-	print_r($all);
+	$allDataJson = unserialize($all[0]->allData);
 	if ($all) 
-	return $all;
+	return $allDataJson;
 };
 // add timer CALLBACK
 function ect_rest_add_timers_callback($data){
 	global $wpdb;
-	$wpdb->insert( 
-		$wpdb->prefix.'ect_timers', 
-		array( 
-			'allData' => serialize($data)
-		)
-	);
-	return ["Added Timer",["insertedID"=>$wpdb->insert_id]];
+	
+	$newArr = [];
+	
+		$newArr['userID'] = $data['userID'];
+		$newArr['fontSize'] = $data['fontSize'];
+		$newArr['fontSizeTxt'] = $data['fontSizeTxt'];
+		$newArr['color'] = $data['color'];
+		$newArr['colorTxt'] = $data['colorTxt'];
+		$newArr['isBold'] = $data['isBold'];
+		$newArr['isBoldTxt'] = $data['isBoldTxt'];
+		$newArr['timezoneOffset'] = $data['timezoneOffset'];
+		$newArr['endMinute'] = $data['endMinute'];
+		$newArr['utcTz'] = $data['utcTz'];
+		$newArr['yearsTxt'] = $data['yearsTxt'];
+		$newArr['monthsTxt'] = $data['monthsTxt'];
+		$newArr['weeksTxt'] = $data['weeksTxt'];
+		$newArr['daysTxt'] = $data['daysTxt'];
+		$newArr['hoursTxt'] = $data['hoursTxt'];
+		$newArr['minutesTxt'] = $data['minutesTxt'];
+		$newArr['secondsTxt'] = $data['secondsTxt'];
+		$newArr['customEndedTxt'] = $data['customEndedTxt'];
+		$newArr['layoutType'] = $data['layoutType'];
+
+		$wpdb->insert( 
+			$wpdb->prefix.'ect_timers', 
+			array( 
+				'allData' => serialize($newArr)
+			)
+		);
+	return ["Added Timer",["returnID"=>$wpdb->insert_id]];
 
 }
 // custom database table
