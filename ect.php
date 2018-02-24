@@ -186,8 +186,10 @@ add_action( 'rest_api_init', function () {
 function ect_rest_get_timers_callback( ) {
 	global $wpdb;
 	$all=$wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."ect_timers;"); 
-	
-	if ( $all ) 
+	$all = unserialize($all);
+	exit;
+	print_r($all);
+	if ($all) 
 	return $all;
 };
 // add timer CALLBACK
@@ -199,7 +201,7 @@ function ect_rest_add_timers_callback($data){
 			'allData' => serialize($data)
 		)
 	);
-	return ["Added Timer"];
+	return ["Added Timer",["insertedID"=>$wpdb->insert_id]];
 
 }
 // custom database table
