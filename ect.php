@@ -194,8 +194,12 @@ add_action( 'rest_api_init', function () {
 } );
 function ect_rest_get_timers_callback( ) {
 	global $wpdb;
-	$all=$wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."ect_timers;"); 
-	$allDataJson = unserialize($all[0]->allData);
+	$all=$wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."ect_timers;");
+
+	// $allDataJson = unserialize($all[0]->allData);
+	foreach($all as $key =>$value){
+		$allDataJson[]=unserialize($value->allData);
+	}
 	if ($all) 
 	return $allDataJson;
 };
