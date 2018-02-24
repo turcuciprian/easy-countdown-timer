@@ -47,12 +47,7 @@ function ect_register_plugin_styles(){
 	wp_enqueue_script( 'ectBundleReact' );
 }
 // shortcode:
-function ectShortcodeDate1( $atts ){
-	$datePickerA = get_option('ect-datePickerA');
-	$result = ect_daysUntil($datePickerA);
-	return $result;
-}
-	add_shortcode( 'ectSc', 'ectShortAll');
+add_shortcode( 'ectSc', 'ectShortAll');
 function ectShortAll($atts){
 	global $wpdb;
 	if(!isset($atts['id'])){
@@ -62,59 +57,24 @@ function ectShortAll($atts){
 	//
 	$getData = $wpdb->get_row( "SELECT * FROM `".$wpdb->prefix."ect_timers`  WHERE ID = ".$timerID.";" );
 	$finalArr = unserialize($getData->allData);
-	
-	$tName = 'Timer '.$timerID;
-	$endDate = $finalArr['enddate'];
-	$numberColor = $finalArr['numbercolor'];
-	$ColorTxt = $finalArr['colortxt'];
-	$numberFontSize = $finalArr['numberfontsize'];
-	$FontSizeTxt = $finalArr['fontsizetxt'];
-	$numberBold = $finalArr['numberbold'];
-	$numberBoldTxt = $finalArr['numberboldtxt'];
-	$tTimezone = $finalArr['enddatetimezone'];
-	$endHours = $finalArr['endhour'];
-	$endMinutes = $finalArr['endminute'];
-	$tTimeFormat = $finalArr['timeformat'];
-	$cTxtYears = $finalArr['customtxtyears'];
-	$cTxtMonths = $finalArr['customtxtmonths'];
-	$cTxtWeeks = $finalArr['customtxtweeks'];
-	$cTxtDays = $finalArr['customtxtdays'];
-	$cTxtHours = $finalArr['customtxthours'];
-	$cTxtMinutes= $finalArr['customtxtminutes'];
-	$cTxtSeconds = $finalArr['customtxtseconds'];
-	$customTimerEndedTxt = $finalArr['customTimerEndedTxt'];
-	$ectIDValue = 'ect_shortcode_'.substr(md5($tName.$endHours.$endMinutes.$endDate.$ColorTxt.$numberFontSize.$numberBold.$tTimezone.$tTimeFormat.get_the_ID().rand(0, 100)),0,10);
+
+	$ectIDValue = 'ectScID_'.substr(md5(rand(0, 10000)),0,10);
 
 
-	$boldText = ($numberBold=='true'?'bold':'normal');
-$exactDate = $tDate.' '.$tHours.':'.$tMinutes.':00';
-	$daysLeft = ect_daysUntil($exactDate,$tTimezone);
+// 	$boldText = ($numberBold=='true'?'bold':'normal');
+// $exactDate = $tDate.' '.$tHours.':'.$tMinutes.':00';
+// 	$daysLeft = ect_daysUntil($exactDate,$tTimezone);
 	$result = "<div class=\"ectPopupContent\" id=\"$ectIDValue\">
 	</div>
 	<script type=\"text/javascript\">
 		ectProperties.push(
 			{
 				'$ectIDValue': {
-					timeout: [],
-					endDate: '$endDate',
-					pTimezoneOffset: '$tTimezone',
-					endHour: '$endHours',
-					endMinute: '$endMinutes',
-					pFormat: '$tTimeFormat',
-					fontSize: '$numberFontSize',
-					fontSizeTxt: '$FontSizeTxt',
-					color: '$numberColor',
-					colorTxt: '$ColorTxt',
-					isBold: $numberBold,
-					isBoldTxt: $numberBoldTxt,
-					customTxtYears: '$cTxtYears',
-					customTxtMonths: '$cTxtMonths',
-					customTxtWeeks: '$cTxtWeeks',
-					customTxtDays: '$cTxtDays',
-					customTxtHours: '$cTxtHours',
-					customTxtMinutes: '$cTxtMinutes',
-					customTxtSeconds: '$cTxtSeconds',
-					customTimerEndedTxt: '$customTimerEndedTxt'
+					timeout: [],\n";
+	foreach($finalArr as $key=>$value){
+		$result .="                    $key : '$value', \n";
+	}
+	$result .="
 				}
 			}
 		);
@@ -124,10 +84,7 @@ $exactDate = $tDate.' '.$tHours.':'.$tMinutes.':00';
 	}
 	return 0;
 }
-function ect_daysUntil($date,$timezone){
-	date_default_timezone_set($timezone);
-	return (isset($date)) ? floor((strtotime($date) - time())/60/60/24) : FALSE;
-}
+
 
 //TinyMCE Above button
 add_action( 'media_buttons', function($editor_id){
@@ -211,33 +168,15 @@ function ect_rest_add_timers_callback($data){
 	global $wpdb;
 	
 	$newArr = [];
-	
-		$newArr['userID'] = $data['userID'];
-		$newArr['fontSize'] = $data['fontSize'];
-		$newArr['fontSizeTxt'] = $data['fontSizeTxt'];
-		$newArr['color'] = $data['color'];
-		$newArr['colorTxt'] = $data['colorTxt'];
-		$newArr['isBold'] = $data['isBold'];
-		$newArr['isBoldTxt'] = $data['isBoldTxt'];
-		$newArr['timezoneOffset'] = $data['timezoneOffset'];
-		$newArr['endMinute'] = $data['endMinute'];
-		$newArr['utcTz'] = $data['utcTz'];
-		$newArr['yearsTxt'] = $data['yearsTxt'];
-		$newArr['monthsTxt'] = $data['monthsTxt'];
-		$newArr['weeksTxt'] = $data['weeksTxt'];
-		$newArr['daysTxt'] = $data['daysTxt'];
-		$newArr['hoursTxt'] = $data['hoursTxt'];
-		$newArr['minutesTxt'] = $data['minutesTxt'];
-		$newArr['secondsTxt'] = $data['secondsTxt'];
-		$newArr['customEndedTxt'] = $data['customEndedTxt'];
-		$newArr['layoutType'] = $data['layoutType'];
-
-		$wpdb->insert( 
-			$wpdb->prefix.'ect_timers', 
-			array( 
-				'allData' => serialize($newArr)
-			)
-		);
+	foreach($data->get_params() as $key=> $value){
+		$newArr[$key] = $data[$key];
+	}
+	$wpdb->insert( 
+		$wpdb->prefix.'ect_timers', 
+		array( 
+			'allData' => serialize($newArr)
+		)
+	);
 	return ["Added Timer",["returnID"=>$wpdb->insert_id]];
 
 }
