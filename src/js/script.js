@@ -9,22 +9,18 @@ if (popupButton[0]) {
   });
 }
 //insert into tinymce editor
-function ectWPInsertSC() {
-  console.log('inserting?');
+function ectWPInsertSC(timerID) {
+  console.log(timerID);
+  
   
   var ectPopup = jQuery(".ectMainPopupContainer");
-  console.log(ectPopup);
   
-  var ectSCInput = jQuery("#ectSCInput"); //popup Shortcode Input
-  if (ectSCInput[0]) {
     
-    var ShortcodeValue = ectSCInput.val();
+    var ShortcodeValue = "[ectSc id=\""+timerID+"\" ]";
     tinyMCE.activeEditor.selection.setContent(ShortcodeValue);
-    if (ectPopup[0]) {
-      
+    if (ectPopup[0]) {    
       ectPopup.addClass("hidden");
     }
-  }
 }
 
 // close popup

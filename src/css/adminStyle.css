@@ -14,7 +14,7 @@
   background: #FFF;
   width: 60%;
     height: 81%;
-    overflow-y: hidden;
+    overflow-y: scrol;
     overflow-x: hidden;
 }
 .ectMainPopupContainer.hidden{

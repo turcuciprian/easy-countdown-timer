@@ -38,6 +38,7 @@ function ect_register_plugin_styles(){
 	var devMode = true;
     var isOnlyPreview = true;
 		var ectProperties = [];
+		var ectWPPath ="<?php echo site_url();?>";
 	</script>
 	<?php
 	//script
@@ -99,6 +100,7 @@ function ect_admin_footer() {
 		<script type="text/javascript">
 			var devMode = false;
     		var isOnlyPreview = false;
+			var ectWPPath ="<?php echo site_url();?>";
     		var ectProperties = [
 			{
 				'ectPopupContent': {
@@ -114,13 +116,13 @@ function ect_admin_footer() {
 					colorTxt: '#F00',
 					isBold: false,
 					isBoldTxt: false,
-					customTxtYears: 'Years',
-					customTxtMonths: 'Months',
-					customTxtWeeks: 'Weeks',
-					customTxtDays: 'Days',
-					customTxtHours: 'Hours',
-					customTxtMinutes: 'Minutes',
-					customTxtSeconds: 'Seconds',
+					yearsTxt: 'Years',
+					monthsTxt: 'Months',
+					weeksTxt: 'Weeks',
+					daysTxt: 'Days',
+					hoursTxt: 'Hours',
+					minutesTxt: 'Minutes',
+					secondsTxt: 'Seconds',
 					customTimerEndedTxt: 'Timer Ended'
 				}
 			}
