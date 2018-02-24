@@ -196,27 +196,7 @@ function ect_rest_add_timers_callback($data){
 	$wpdb->insert( 
 		$wpdb->prefix.'ect_timers', 
 		array( 
-			'timerName' => $data['timerName'],
-			'userID' => $data['userID'],
-			'fontSize' => $data['fontSize'],
-			'fontSizeTxt' => $data['fontSizeTxt'],
-			'color' => $data['color'],
-			'colorTxt' => $data['colorTxt'],
-			'isBold' => $data['isBold'],
-			'isBoldTxt' => $data['isBoldTxt'],
-			'timezoneOffset' => $data['timezoneOffset'],
-			'endHour' => $data['endHour'],
-			'endMinute' => $data['endMinute'],
-			'utcTz' => $data['utcTz'],
-			'yearsTxt' => $data['yearsTxt'],
-			'monthsTxt' => $data['monthsTxt'],
-			'weeksTxt' => $data['weeksTxt'],
-			'daysTxt' => $data['daysTxt'],
-			'hoursTxt' => $data['hoursTxt'],
-			'minutesTxt' => $data['minutesTxt'],
-			'secondsTxt' => $data['secondsTxt'],
-			'customEndedTxt' => $data['customEndedTxt'],
-			'layoutType' => $data['layoutType']
+			'allData' => serialize($data)
 		)
 	);
 	return ["Added Timer"];
@@ -232,26 +212,7 @@ function ect_db_install() {
 
 	$sql = "CREATE TABLE `".$wpdb->prefix."ect_timers` 
 	( `ID` INT(9) NOT NULL AUTO_INCREMENT , 
-	`timerName` VARCHAR(256) NOT NULL , 
-	`userID` INT(9) NOT NULL , 
-	`fontSize` INT(3) NOT NULL , 
-	`fontSizeTxt` INT(3) NOT NULL , 
-	`color` VARCHAR(256) NOT NULL , 
-	`colorTxt` VARCHAR(256) NOT NULL , 
-	`isBold` BOOLEAN NOT NULL , `isBoldTxt` BOOLEAN NOT NULL , 
-	`timezoneOffset` VARCHAR(256) NOT NULL , 
-	`endHour` INT(2) NOT NULL , 
-	`endMinute` INT(2) NOT NULL , 
-	`utcTz` VARCHAR(256) NOT NULL , 
-	`yearsTxt` VARCHAR(256) NOT NULL , 
-	`monthsTxt` VARCHAR(256) NOT NULL , 
-	`weeksTxt` VARCHAR(256) NOT NULL , 
-	`daysTxt` VARCHAR(256) NOT NULL , 
-	`hoursTxt` VARCHAR(256) NOT NULL , 
-	`minutesTxt` VARCHAR(256) NOT NULL , 
-	`secondsTxt` VARCHAR(256) NOT NULL , 
-	`customEndedTxt` VARCHAR(256) NOT NULL , 
-	`layoutType` VARCHAR(256) NOT NULL , 
+	`allData` TEXT NOT NULL,
 	PRIMARY KEY (`ID`)) 
 	ENGINE = InnoDB;
 	) $charset_collate;";
