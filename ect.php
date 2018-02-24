@@ -198,7 +198,10 @@ function ect_rest_get_timers_callback( ) {
 
 	// $allDataJson = unserialize($all[0]->allData);
 	foreach($all as $key =>$value){
-		$allDataJson[]=unserialize($value->allData);
+		$finalArr = $value->allData;
+		$newArr =unserialize($finalArr);
+		$newArr['timerID']=$value->ID;
+		$allDataJson[]=$newArr;
 	}
 	if ($all) 
 	return $allDataJson;
