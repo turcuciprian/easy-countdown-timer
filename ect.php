@@ -59,11 +59,6 @@ function ectShortAll($atts){
 	$finalArr = unserialize($getData->allData);
 
 	$ectIDValue = 'ectScID_'.substr(md5(rand(0, 10000)),0,10);
-
-
-// 	$boldText = ($numberBold=='true'?'bold':'normal');
-// $exactDate = $tDate.' '.$tHours.':'.$tMinutes.':00';
-// 	$daysLeft = ect_daysUntil($exactDate,$tTimezone);
 	$result = "<div class=\"ectPopupContent\" id=\"$ectIDValue\">
 	</div>
 	<script type=\"text/javascript\">
@@ -71,8 +66,11 @@ function ectShortAll($atts){
 			{
 				'$ectIDValue': {
 					timeout: [],\n";
-	foreach($finalArr as $key=>$value){
-		$result .="                    $key : '$value', \n";
+	foreach($finalArr as $key=>$val){
+		if(is_array($key) || is_array($val)){
+			continue;
+		}
+		$result .="                    ".$key." : '".$val."', \n";
 	}
 	$result .="
 				}
