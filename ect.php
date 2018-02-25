@@ -97,6 +97,7 @@ add_action( 'media_buttons', function($editor_id){
 //admin body
 
 function ect_admin_footer() {
+	global $ectKs;
     ?>
 
 		<div class="ectMainPopupContainer hidden">
