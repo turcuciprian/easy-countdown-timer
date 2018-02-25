@@ -240,3 +240,21 @@ function ect_db_install() {
 
 }
 register_activation_hook( __FILE__, 'ect_db_install' );
+
+
+
+
+
+
+
+// menu
+function ect_plugin_menu() {
+	add_menu_page( 'Timers', 'Easy Countdown Timer - Manage Timers', 'manage_options', 'ect-menu','ect_menu_options_page' );
+}
+function ect_menu_options_page(){
+	//if form was sumbitted
+?>
+	<div id="allTimers"></div>
+<?php	
+}
+add_action( 'admin_menu', 'ect_plugin_menu' );
