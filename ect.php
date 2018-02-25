@@ -12,6 +12,9 @@
    License: GPL2
  */
  error_reporting(E_ALL); ini_set('display_errors', '1');
+ $ectKs = md5(NONCE_KEY.'ect');
+ $ectTableName = $wpdb->prefix . 'ect_timers';
+ 
 // Register style sheet.
 	add_action( 'admin_enqueue_scripts', 'ect_admin_register_plugin_styles' );
 	add_action( 'wp_enqueue_scripts', 'ect_register_plugin_styles' );
@@ -33,6 +36,7 @@ function ect_admin_register_plugin_styles() {
 }
 //register/enqueue style callback function
 function ect_register_plugin_styles(){
+	exit;
 	?>
 	<script type="text/javascript">
 	var devMode = true;
@@ -50,13 +54,14 @@ function ect_register_plugin_styles(){
 // shortcode:
 add_shortcode( 'ectSc', 'ectShortAll');
 function ectShortAll($atts){
+	global  $ectTableName;
 	global $wpdb;
 	if(!isset($atts['id'])){
 		return;
 	}
 	$timerID = $atts['id'];
 	//
-	$getData = $wpdb->get_row( "SELECT * FROM `".$wpdb->prefix."ect_timers`  WHERE ID = ".$timerID.";" );
+	$getData = $wpdb->get_row( "SELECT * FROM  $ectTableName  WHERE ID = ".$timerID.";" );
 	$finalArr = unserialize($getData->allData);
 
 	$ectIDValue = 'ectScID_'.substr(md5(rand(0, 10000)),0,10);
@@ -101,6 +106,8 @@ function ect_admin_footer() {
 			var devMode = false;
     		var isOnlyPreview = false;
 			var ectWPPath ="<?php echo site_url();?>";
+			var ectKs = "<?php echo $ectKs;?>";
+			
     		var ectProperties = [
 			{
 				'ectPopupContent': {
@@ -138,20 +145,32 @@ add_action('admin_footer', 'ect_admin_footer',1000);
 //
 
 add_action( 'rest_api_init', function () {
+	$namespace = 'ect/v2';
 	//get timers
-	register_rest_route( 'ect/v2', '/getTimers', array(
+	register_rest_route( $namespace, '/getTimers/(?P<ectKs>\w+)', array(
 		'methods' => 'GET',
 		'callback' => 'ect_rest_get_timers_callback',
 	) );
 	//add timer
-	register_rest_route( 'ect/v2', '/addTimer', array(
+	register_rest_route( $namespace, '/addTimer', array(
 		'methods' => 'PUT',
 		'callback' => 'ect_rest_add_timers_callback',
 	) );
+	//remove timer
+	register_rest_route( $namespace, '/removeTimer/(?P<timerID>\w+)/(?P<ectKs>\w+)', array(
+		'methods' => 'DELETE',
+		'callback' => 'ect_rest_remove_timers_callback',
+	) );
 } );
-function ect_rest_get_timers_callback( ) {
+function ect_rest_get_timers_callback($data) {
+	global $ectKs;
+	if($data['ectKs']!=$ectKs){
+		return ['status'=>'Key invalid'];
+
+	}
 	global $wpdb;
-	$all=$wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."ect_timers;");
+	global $ectTableName;
+	$all=$wpdb->get_results( "SELECT * FROM ".$ectTableName.";");
 
 	// $allDataJson = unserialize($all[0]->allData);
 	foreach($all as $key =>$value){
@@ -165,30 +184,51 @@ function ect_rest_get_timers_callback( ) {
 };
 // add timer CALLBACK
 function ect_rest_add_timers_callback($data){
+	global $ectTableName;
+	global $ectKs;
+	if($data['ectKs']!=$ectKs){
+		return ['status'=>'Key invalid'];
+	}
 	global $wpdb;
 	
 	$newArr = [];
-	foreach($data->get_params() as $key=> $value){
+	foreach($data->get_params()['data'] as $key=> $value){
 		$newArr[$key] = $data[$key];
 	}
 	$wpdb->insert( 
-		$wpdb->prefix.'ect_timers', 
+		$ectTableName, 
 		array( 
 			'allData' => serialize($newArr)
 		)
 	);
 	return ["Added Timer",["returnID"=>$wpdb->insert_id]];
 
+};
+// Delete timer callback
+function ect_rest_remove_timers_callback($data){
+	global $wpdb;
+	global $ectKs;
+	global $ectTableName;
+	
+	$timerID = $data['timerID'];
+	if($data['ectKs']!=$ectKs){
+		return ['status'=>'Key invalid'];
+
+	}
+	$wpdb->delete( $ectTableName, ["ID"=>$timerID] );
+	return ['status'=>'timer deleted'];
+
 }
 // custom database table
 function ect_db_install() {
 	global $wpdb;
+	global $ectTableName;
 
-	$table_name = $wpdb->prefix . 'ect_timers';
+	;
 	
 	$charset_collate = $wpdb->get_charset_collate();
 
-	$sql = "CREATE TABLE `".$wpdb->prefix."ect_timers` 
+	$sql = "CREATE TABLE $ectTableName 
 	( `ID` INT(9) NOT NULL AUTO_INCREMENT , 
 	`allData` TEXT NOT NULL,
 	PRIMARY KEY (`ID`)) 
