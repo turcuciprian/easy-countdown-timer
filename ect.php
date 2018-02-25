@@ -192,8 +192,9 @@ function ect_rest_add_timers_callback($data){
 	global $wpdb;
 	
 	$newArr = [];
-	foreach($data->get_params()['data'] as $key=> $value){
-		$newArr[$key] = $data[$key];
+	$newObjData= $data->get_params()['data'];
+	foreach($newObjData as $key=> $value){
+		$newArr[$key] = $newObjData[$key];
 	}
 	$wpdb->insert( 
 		$ectTableName, 
