@@ -12,10 +12,11 @@
 }
 .ectMainPopupContainer #ectPopupContent{
   background: #FFF;
-  width: 60%;
+  width: 75%;
     height: 81%;
-    overflow-y: scrol;
+    overflow-y: scroll;
     overflow-x: hidden;
+    padding:10px;
 }
 .ectMainPopupContainer.hidden{
   display:none;
