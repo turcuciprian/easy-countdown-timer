@@ -36,7 +36,6 @@ function ect_admin_register_plugin_styles() {
 }
 //register/enqueue style callback function
 function ect_register_plugin_styles(){
-	exit;
 	?>
 	<script type="text/javascript">
 	var devMode = true;
