@@ -1,15 +1,15 @@
 === Easy Countdown Timer==
 Contributors: turcuciprian, ioanachichernea
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MU4RJNNF74QKY
-Tags: countdown, timer,live, clock, second, minute, hour, day, week, month, year, color, size, pixel, animated, custom, easy, help
+Tags: countdown, ticker,timer,live, clock, second, minute, hour, day, week, month, year, color, size, pixel, animated, custom, easy, help, minus react plugin, shortcode, widget,countdown system, countdown generator, generator, no jQuery, event
 Requires at least: 4.6
 Tested up to: 4.9.4
-Stable tag: 2.1
+Stable tag: 2.1.1
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Easy Countdown Timer with many features, styles, options, unlimited timers, modify font size, color, weight bold, modify colors, modify the text, end date and end time picker, timezone, all in a shortcode in your admin panel. Add in any post or page or custom post type. Easy.
+Countdown Timer, unlimited timers,colors, sizes, custom text / translations, end date and end time picker, timezone, all in a shortcode in your admin panel. Add in any post or page or custom post type. Easy.
 
 == Description ==
 
@@ -78,6 +78,8 @@ You just click the "insert Shortcode" button at the bottom left to add your shor
 8. How The configuration of the styles tab looks like
 
 9. How The configuration of the general tab looks like
+
+10. How The configuration of the Timers Admin Page looks like
 
 
 
@@ -157,6 +159,12 @@ Added End time options
 * You can view and delete existing timers
 * You can edit timer data
 
+= 2.1.1 =
+
+* Better security (unique token was introduced)
+* List of all available timers with name and available shortcode
+* The ability to delete timers from the list
+
 == Upgrade Notice ==
 
 = 1.0.0 =
@@ -206,3 +214,7 @@ New variables added, the functionality from previous versions will not work if u
 = 2.1 =
 
 New features have been added that require the new functionality. Previous functionality will not work
+
+= 2.1.1 =
+
+Does not affect the previous version functionality. Only improvements where made

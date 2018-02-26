@@ -3,10 +3,10 @@
    Plugin Name: Easy Contdown Timer
    Plugin URI: https://wordpress.org/plugins/easy-countdown-timer
    Description: A very easy to use and intuitive countdown timer for wordpress.
-	 At the moment it shows the number of days left to a given date As a shortcode
-	 You can add infinite shortcodes.
+	At the moment it shows the number of days left to a given date As a shortcode
+	You can add infinite shortcodes.
    Author: Ciprian Turcu
-   Version: 2.1
+   Version: 2.1.1
    Author URI: http://www.ciprianturcu.com
    tags: timer, countdown,timezone, live 
    License: GPL2
@@ -90,9 +90,11 @@ function ectShortAll($atts){
 
 
 //TinyMCE Above button
-add_action( 'media_buttons', function($editor_id){
+add_action( 'media_buttons','ectWYSIWYG_Buttons' );
+
+function ectWYSIWYG_Buttons($editor_id){
     echo '<span id="ectPopupButton" class="button button-primary button-large">Insert Timer</span>';
-} );
+}
 //admin body
 
 function ect_admin_footer() {
@@ -105,7 +107,8 @@ function ect_admin_footer() {
 		<script type="text/javascript">
 			var devMode = false;
     		var isOnlyPreview = false;
-			var ectWPPath ="<?php echo site_url();?>";
+			var ectWPPath ="<?php echo site_url();?>/wp-json";
+			var ectScriptBase = '<?php echo plugins_url( '', __FILE__ );?>'
 			var ectKs = "<?php echo $ectKs;?>";
 			
     		var ectProperties = [
@@ -250,11 +253,12 @@ register_activation_hook( __FILE__, 'ect_db_install' );
 
 // menu
 function ect_plugin_menu() {
-	add_menu_page( 'Timers', 'Easy Countdown Timer - Manage Timers', 'manage_options', 'ect-menu','ect_menu_options_page' );
+	add_menu_page( 'Timers', 'Timers', 'manage_options', 'ect-menu','ect_menu_options_page' );
 }
 function ect_menu_options_page(){
 	//if form was sumbitted
 ?>
+
 	<div id="allTimers"></div>
 <?php	
 }
