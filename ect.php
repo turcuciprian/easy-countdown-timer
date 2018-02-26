@@ -6,7 +6,7 @@
 	At the moment it shows the number of days left to a given date As a shortcode
 	You can add infinite shortcodes.
    Author: Ciprian Turcu
-   Version: 2.1.1
+   Version: 2.1.2
    Author URI: http://www.ciprianturcu.com
    tags: timer, countdown,timezone, live 
    License: GPL2
@@ -227,9 +227,6 @@ function ect_rest_remove_timers_callback($data){
 function ect_db_install() {
 	global $wpdb;
 	global $ectTableName;
-
-	;
-	
 	$charset_collate = $wpdb->get_charset_collate();
 
 	$sql = "CREATE TABLE $ectTableName 

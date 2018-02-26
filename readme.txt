@@ -4,38 +4,30 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: countdown, ticker,timer,live, clock, second, minute, hour, day, week, month, year, color, size, pixel, animated, custom, easy, help, minus react plugin, shortcode, widget,countdown system, countdown generator, generator, no jQuery, event
 Requires at least: 4.6
 Tested up to: 4.9.4
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Countdown Timer, unlimited timers,colors, sizes, custom text / translations, end date and end time picker, timezone, all in a shortcode in your admin panel. Add in any post or page or custom post type. Easy.
+A easy countdown timer for wordpress. Period. Unlimited , custom, colors, sizes , Easy .
 
 == Description ==
 
-[FREE FEATURE REQUEST](https://docs.google.com/forms/d/e/1FAIpQLSfiw4ZMZP_Zln4nzafFCnMF-uxBf1GpHh98qtTIh-X8uL-ZOA/viewform?usp=sf_link)
-
-A very easy to use and intuitive countdown timer for WordPress. You select a Ending date, and you can choose a color and a font size and the numbers of days, hours, minutes,seconds
-left will automatically be generated. Everything done with a mouse click and selecting of options, easy as pie. Check out any page or post for a blue button above the editor that says "Insert Timer" to get to the interface. You also have the option to set the timezone for the end date date to be relative to and select a timer format based on various options. You have a live preview to see the exact end date, you can choose hours and minutes to the exact date. You can also choose a time format: from years to seconds, the timer adapting itself based on the highest value left available (if years is 0 only months will show, if months and years is 0 only weeks will show as highest, if years, months and weeks is 0, days will show as highest. Then minutes, then just seconds) And if the timer is done it will just show 0. Exciting updates to come.
-You can also customize the Years/Months/Weeks/Days/Hours/Minutes/Seconds Text
+A easy countdown timer for wordpress. Period.
 
 *** FEATURES
 
-* End Date DatePicker
+* End Date and time all in one picker
 * Change Timezone
-* Change Time format
-* Select End Hour
-* Select End Minutes
-* Make text bold
-* Change timer color
+* Make text timer number bold
+* Make text timer custom translation bold
+* Change font size of text timer number
+* Change font size of text timer custom translation
+* Change timer number color
+* Change timer translation color
 * Change font size
-* Customize and style with color, size and weight the Years/Months/Weeks/Days/Hours/Minutes/Seconds text
-* Style with color, size and weight the Years/Months/Weeks/Days/Hours/Minutes/Seconds custom text
+* Custom translations for text representing the countdown numbers
 
-
-You also have a live countdown where you place the shortcode, based on the format you selected.
-
-[Report a BUG](https://docs.google.com/forms/d/e/1FAIpQLSdGkFUgA3uQcNrJl53AHmeKn0ubnfn1iX2oWOZ6-st04APWRw/viewform?usp=sf_link)
 
 == Installation ==
 
@@ -75,11 +67,7 @@ You just click the "insert Shortcode" button at the bottom left to add your shor
 
 7. What the date/time Picker looks like
 
-8. How The configuration of the styles tab looks like
-
-9. How The configuration of the general tab looks like
-
-10. How The configuration of the Timers Admin Page looks like
+8. How The configuration of the Timers Admin Page looks like
 
 
 
@@ -165,6 +153,10 @@ Added End time options
 * List of all available timers with name and available shortcode
 * The ability to delete timers from the list
 
+= 2.1.2 =
+
+* Improved popup insert and close design (they are more visible on scroll)
+
 == Upgrade Notice ==
 
 = 1.0.0 =
@@ -216,5 +208,9 @@ New variables added, the functionality from previous versions will not work if u
 New features have been added that require the new functionality. Previous functionality will not work
 
 = 2.1.1 =
+
+Does not affect the previous version functionality. Only improvements where made
+
+= 2.1.2 =
 
 Does not affect the previous version functionality. Only improvements where made
